@@ -16,8 +16,8 @@ jobs:
     
     defaults:
       run: 
-        working-directory: ./kracken-app
-        
+        working-directory: kracken-app  
+    
     strategy:
       matrix:
         node-version: [16.x]
