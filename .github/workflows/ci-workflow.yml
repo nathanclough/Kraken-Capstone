@@ -16,7 +16,7 @@ jobs:
     
     defaults:
       run: 
-        working-directory: kracken-app  
+        working-directory: kraken-app  
     
     strategy:
       matrix:
