@@ -6,6 +6,10 @@
   height: 40vmin;
   pointer-events: none;
 }
+.Nami-logo{
+  width: auto;
+  height: 45px
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

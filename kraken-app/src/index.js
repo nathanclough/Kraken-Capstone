@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Navbar from './Components/Navbar/Navbar';
 import './index.css';
 import Home from './Pages/Home';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <div>
+      <Navbar network="Cardano-testnet" connected={false} style={{maxHeight:"5vmin",marginBottom:"5vmin"}}>
+      </Navbar>
+      <div style={{height:"95vmin"}}>
+        <Home />
+      </div>
+    </div>
+
+
   </React.StrictMode>,
   document.getElementById('root')
 );
