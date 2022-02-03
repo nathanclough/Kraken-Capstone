@@ -2,6 +2,12 @@ import React from 'react'
 import {cleanup,fireEvent,render} from '@testing-library/react'
 import Navbar from '../Navbar'
 
+const mockedUsedNavigate = jest.fn();
+jest.mock('react-router-dom',()=> ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockedUsedNavigate,
+}))
+
 test('Navbar renders', () => {
     expect(() => render(<Navbar></Navbar>)).not.toThrowError()
 })
