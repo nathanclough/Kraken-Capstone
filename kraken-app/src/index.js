@@ -2,18 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from './Components/Navbar/Navbar';
 import './index.css';
+import './App.css';
 import Home from './Pages/Home';
+import Profile from './Pages/Profile';
+import Marketplace from './Pages/Marketplace';
 import reportWebVitals from './reportWebVitals';
+import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <div>
-      <Navbar network="Cardano-testnet" connected={false} style={{maxHeight:"5vmin",marginBottom:"5vmin"}}>
+    <BrowserRouter>    
+      <Navbar network="Cardano-testnet" connected={true}>
       </Navbar>
-      <div style={{height:"95vmin"}}>
-        <Home />
+      <div >
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="profile" element={<Profile/>} />
+          <Route path="marketplace" element={<Marketplace/>}/>
+          <Route path="*" element={<div className='App-Page'>Invalid URL</div>}/>
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
 
 
   </React.StrictMode>,

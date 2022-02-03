@@ -1,5 +1,6 @@
-.App {
-  text-align: center;
+.App-Page{
+  height: 90vh; 
+  padding-top: 64px;
 }
 
 .App-logo {
@@ -8,7 +9,7 @@
 }
 .Nami-logo{
   width: auto;
-  height: 45px
+  height: 45px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
