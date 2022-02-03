@@ -7,7 +7,7 @@ import Home from './Pages/Home';
 import Profile from './Pages/Profile';
 import Marketplace from './Pages/Marketplace';
 import reportWebVitals from './reportWebVitals';
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
