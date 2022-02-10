@@ -1,11 +1,12 @@
 import logo from '../logo.svg';
 import '../App.css';
-
+import KrakenLogo from '../Components/KrakenLogo/KrakenLogo';
 function Home() {
   return (
     <div className="App-Page">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <KrakenLogo></KrakenLogo>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
