@@ -1,46 +1,34 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import KrakNFT from './KrakNFT.png';
+
 
 function NFTCard(props) {
 
   return (
     <>
-      <CssBaseline />
-      <Paper elevation={3}>
-      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <CardMedia
           component="img"
-          height="300"
-          img src = {KrakNFT}
+          img src={props.image}
           alt="kraken"
         />
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Typography ariant="overline" display="block" gutterBottom>
-            <Stack direction="row" spacing={2} justifyContent="center">
-                Pirates NFT Name{props.number}
-            </Stack>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
+          <Typography variant="overline" display="block" gutterBottom>
+            {props.name}
           </Typography>
         </CardContent>
-        <Stack direction="row" spacing={2} justifyContent="center">
-        <CardActions>
-            <Button variant="outlined" size="small">View</Button>
-            <Button variant="outlined" size="small">Buy</Button>
+        <CardActions sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
+          <Button variant="outlined" size="small">View</Button>
+          <Button variant="outlined" size="small">Buy</Button>
         </CardActions>
-        </Stack>
       </Card>
-      </Paper>
     </>
   );
 
-  
 }
 export default NFTCard;
