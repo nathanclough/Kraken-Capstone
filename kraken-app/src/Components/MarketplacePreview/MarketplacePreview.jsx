@@ -20,10 +20,10 @@ function MarketplacePreview(props) {
   };
 
   const getImage = (index) => {
-    if (index == 1 ){
+    if (index === 1 ){
       return KrakNFT1
     }
-    else if (index == 2){
+    else if (index === 2){
       return KrakNFT2
     }
     else{
