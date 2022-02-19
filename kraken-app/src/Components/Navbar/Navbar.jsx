@@ -26,7 +26,7 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-            <Typography onClick={() => {redirect("/")}} variant="h4" style={{paddingRight: "25px"}}component="div" sx={{ flexGrow: 1 }}>
+            <Typography onClick={() => {redirect("/")}} variant="h4" style={{paddingRight: "25px"}} component="div" sx={{ flexGrow: 1 }}>
                 KrakNFT
             </Typography> 
             <Grid container spacing={1}direction="row" alignItems="center" >

@@ -4,21 +4,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import logo from "./logo.png";
+import KrakNFTLogo from "../../KrakNFTLogo.png";
 
-export default function KrakenLogo(props) {
+function KrakenLogo(props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           style={{backgroundColor: "cyan"}}
-          height="160"
-          image={logo}
+          image={KrakNFTLogo}
           alt="kraken logo"
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
+          <Typography variant="overline" display="block" gutterBottom>
             Team Kraken
           </Typography>
         </CardContent>
@@ -26,3 +25,4 @@ export default function KrakenLogo(props) {
     </Card>
   );
 }
+export default KrakenLogo;
