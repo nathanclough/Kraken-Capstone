@@ -11,6 +11,11 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+const format = {
+    paddingRight: "25px",
+    cursor:'pointer'
+}
+
 function Navbar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -67,7 +72,7 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-            <Typography onClick={() => {redirect("/")}} variant="h4" style={{paddingRight: "25px"}}component="div" sx={{ flexGrow: 1 }}>
+            <Typography onClick={() => {redirect("/")}} variant="h4" style={{...format}}component="div" sx={{ flexGrow: 1 }}>
                 KrakNFT
             </Typography> 
             <Grid container spacing={1}direction="row" alignItems="center" >
