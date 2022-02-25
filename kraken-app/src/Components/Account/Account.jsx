@@ -7,7 +7,8 @@ import Box from '@mui/material/Box';
 
 const format = {
     fontWeight: "bold",
-    marginLeft: '420px',
+    marginLeft: "auto",
+    marginRight: "auto",
     color: "rgb(0, 110, 210)"
 }
 function TabPanel(props) {
