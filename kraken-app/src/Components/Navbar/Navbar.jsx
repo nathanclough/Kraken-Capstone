@@ -7,8 +7,19 @@ import NamiLogo from '../../NamiLogo.svg'
 import CloudIcon from '@mui/icons-material/Cloud';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
+import * as React from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 function Navbar(props) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
     const navigate = useNavigate();
     const namiMsg = props.connected ? "Connected" : "Connect Wallet";
     const redirect = (url) =>{
@@ -17,7 +28,37 @@ function Navbar(props) {
     const userAvatar = () =>{
         if(props.connected)
         { 
-           return <div onClick={() => {redirect("/profile")}}><Avatar src="/broken-image.jpg"/></div>   
+             return (
+    <div>
+      <Button
+        id="demo-positioned-button"
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+          <Avatar src="/broken-image.jpg"/>
+      </Button>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'bottom',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <MenuItem onClick={() => {redirect("/profile")}}>My Profile</MenuItem>
+        <MenuItem onClick={handleClose}>Disconnect</MenuItem>
+      </Menu>
+    </div>
+  );   
         }
         else{
             return <></>
