@@ -25,6 +25,7 @@ function Navbar(props) {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
     const navigate = useNavigate();
     const namiMsg = props.connected ? "Connected" : "Connect Wallet";
     const redirect = (url) =>{
@@ -59,7 +60,7 @@ function Navbar(props) {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => {redirect("/profile")}}>My Profile</MenuItem>
+        <MenuItem onClick={() => {redirect("/profile"); handleClose()}}>My Profile</MenuItem>
         <MenuItem onClick={handleClose}>Disconnect</MenuItem>
       </Menu>
     </div>
