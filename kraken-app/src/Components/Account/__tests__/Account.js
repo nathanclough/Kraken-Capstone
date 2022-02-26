@@ -1,7 +1,7 @@
 import React from 'react'
 import {cleanup,fireEvent,render} from '@testing-library/react'
-import KrakenLogo from '../Account'
+import Account from '../Account'
 
-test('Logo card renders', () => {
+test('Account Renders', () => {
     expect(() => render(<Account></Account>)).not.toThrowError()
 })
