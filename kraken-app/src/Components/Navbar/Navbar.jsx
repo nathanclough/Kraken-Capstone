@@ -7,8 +7,26 @@ import NamiLogo from '../../NamiLogo.svg'
 import CloudIcon from '@mui/icons-material/Cloud';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
+import * as React from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+
+const format = {
+    paddingRight: "25px",
+    cursor:'pointer'
+}
 
 function Navbar(props) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
     const navigate = useNavigate();
     const namiMsg = props.connected ? "Connected" : "Connect Wallet";
     const redirect = (url) =>{
@@ -17,7 +35,32 @@ function Navbar(props) {
     const userAvatar = () =>{
         if(props.connected)
         { 
-           return <div onClick={() => {redirect("/profile")}}><Avatar src="/broken-image.jpg"/></div>   
+             return (
+    <div>
+      <Button
+        id="demo-positioned-button"
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+          <Avatar src="/broken-image.jpg"/>
+      </Button>
+      <Menu
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+      >
+        <MenuItem onClick={() => {redirect("/profile"); handleClose()}}>My Profile</MenuItem>
+        <MenuItem onClick={handleClose}>Disconnect</MenuItem>
+      </Menu>
+    </div>
+  );   
         }
         else{
             return <></>
@@ -26,7 +69,7 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-            <Typography onClick={() => {redirect("/")}} variant="h4" style={{paddingRight: "25px"}} component="div" sx={{ flexGrow: 1 }}>
+            <Typography onClick={() => {redirect("/")}} variant="h4" style={{...format}}component="div" sx={{ flexGrow: 1 }}>
                 KrakNFT
             </Typography> 
             <Grid container spacing={1}direction="row" alignItems="center" >

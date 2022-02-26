@@ -39,7 +39,7 @@ function MarketplacePreview(props) {
           </Typography>
           <Box sx={{ display: 'flex' }}> 
             {cards.map((card, index) => (
-              <NFTCard name={`NFT ${index}`} image={getImage(index)}/>
+              <NFTCard key={index} name={`NFT ${index}`} image={getImage(index)}/>
             ))}
           </Box>
           <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
