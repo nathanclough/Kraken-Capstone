@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
 
 const format = {
     paddingRight: "25px",
@@ -46,19 +47,14 @@ function Navbar(props) {
           <Avatar src="/broken-image.jpg"/>
       </Button>
       <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'bottom',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
+        TransitionComponent={Fade}
       >
         <MenuItem onClick={() => {redirect("/profile"); handleClose()}}>My Profile</MenuItem>
         <MenuItem onClick={handleClose}>Disconnect</MenuItem>
