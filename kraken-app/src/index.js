@@ -3,28 +3,14 @@ import ReactDOM from 'react-dom';
 import Navbar from './Components/Navbar/Navbar';
 import './index.css';
 import './App.css';
-import Home from './Pages/Home';
-import Profile from './Pages/Profile';
-import Marketplace from './Pages/Marketplace';
 import reportWebVitals from './reportWebVitals';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import App from './App.js';
+import CssBaseline from '@mui/material/CssBaseline';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>    
-      <Navbar network="Cardano-testnet" connected={true}>
-      </Navbar>
-      <div >
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="profile" element={<Profile/>} />
-          <Route path="marketplace" element={<Marketplace/>}/>
-          <Route path="*" element={<div className='App-Page'>Invalid URL</div>}/>
-        </Routes>
-      </div>
-    </BrowserRouter>
-
-
+    <CssBaseline/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -33,3 +19,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

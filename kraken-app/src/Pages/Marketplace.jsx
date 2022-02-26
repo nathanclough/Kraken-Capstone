@@ -1,8 +1,14 @@
 import '../App.css';
+import * as React from 'react';
+import MarketplacePage from '../Components/MarketplacePage/MarketplacePage.jsx';
 
-function Profile(){
-    return <div className='App-Page'>
-            Marketplace
+function Marketplace() {
+
+    return (
+        <div className='App-Page'>
+            <MarketplacePage />
         </div>
+    )
+
 }
-export default Profile
+export default Marketplace
