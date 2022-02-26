@@ -1,33 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from './Components/Navbar/Navbar';
 import './index.css';
 import './App.css';
-import Home from './Pages/Home';
-import Profile from './Pages/Profile';
-import Marketplace from './Pages/Marketplace';
 import reportWebVitals from './reportWebVitals';
+import App from './App.js';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline/>
-    <BrowserRouter>    
-      <Navbar network="Cardano-testnet" connected={true}>
-      </Navbar>
-      <div >
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="profile" element={<Profile/>} />
-          <Route path="marketplace" element={<Marketplace/>}/>
-          <Route path="*" element={<div className='App-Page'>Invalid URL</div>}/>
-        </Routes>
-      </div>
-    </BrowserRouter>
-
-
-
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
