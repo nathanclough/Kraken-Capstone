@@ -11,9 +11,8 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-
+import logo from "../../logo-Recovered.png";
 const format = {
-    paddingRight: "25px",
     cursor:'pointer'
 }
 
@@ -69,10 +68,11 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-            <Typography onClick={() => {redirect("/")}} variant="h4" style={{...format}}component="div" sx={{ flexGrow: 1 }}>
-                KrakNFT
-            </Typography> 
+
             <Grid container spacing={1}direction="row" alignItems="center" >
+            <Grid item onClick={() => {redirect("/")}} style={{...format}}>
+                    <img className="App-logo" component="img" src={logo}/>
+                </Grid>
                 <Grid item>
                     <CloudIcon fontSize="small"/>
                 </Grid>
