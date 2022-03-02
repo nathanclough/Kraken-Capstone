@@ -1,19 +1,16 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import NamiLogo from '../../NamiLogo.svg'
-import CloudIcon from '@mui/icons-material/Cloud';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-
+import logo from "../../logo-Recovered.png";
 const format = {
-    paddingRight: "25px",
     cursor:'pointer'
 }
 
@@ -69,17 +66,9 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-            <Typography onClick={() => {redirect("/")}} variant="h4" style={{...format}}component="div" sx={{ flexGrow: 1 }}>
-                KrakNFT
-            </Typography> 
             <Grid container spacing={1}direction="row" alignItems="center" >
-                <Grid item>
-                    <CloudIcon fontSize="small"/>
-                </Grid>
-                <Grid item>
-                    <Typography variant="subtitle2" component="div">
-                    {props.network}
-                    </Typography>
+            <Grid item onClick={() => {redirect("/")}} style={{...format}} >
+                    <img className="App-logo" component="img" src={logo} alt="kraken logo"/>
                 </Grid>
             </Grid>
                 
