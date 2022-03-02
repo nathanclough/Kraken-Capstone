@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import NFTCard from '../NFTCard/NFTCard.jsx';
 import KrakNFT0 from '../../KrakNFT0.png';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';

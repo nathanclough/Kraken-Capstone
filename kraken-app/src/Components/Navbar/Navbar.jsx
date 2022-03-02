@@ -10,7 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import logo from "../../logo-Recovered.png";
-import { Typography } from '@mui/material';
+
 const format = {
     cursor:'pointer'
 }
