@@ -7,9 +7,21 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-
+import { useNavigate } from 'react-router-dom';
 
 function NFTCard(props) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    const navigate = useNavigate();
+    const redirect = (url) =>{
+      navigate(url)
+    }
 
   return (
     <>
@@ -28,7 +40,7 @@ function NFTCard(props) {
               </Typography>
             </CardContent>
             <CardActions sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
-              <Button variant="outlined" size="small">View</Button>
+              <Button variant="outlined" size="small" onClick={() => {redirect("/view"); handleClose()}}>View</Button>
               <Button variant="outlined" size="small">Buy</Button>
             </CardActions>
           </Card>

@@ -9,7 +9,7 @@ import KrakNFT2 from '../../KrakNFT2.png';
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-function MarketplacePreview(props) {
+function MarketplacePage(props) {
 
   /*const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
@@ -44,4 +44,4 @@ function MarketplacePreview(props) {
   );
 
 }
-export default MarketplacePreview;
+export default MarketplacePage;
