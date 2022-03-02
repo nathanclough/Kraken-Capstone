@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 
 function NFTCard(props) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [setAnchorEl] = React.useState(null);
     const handleClose = () => {
       setAnchorEl(null);
     };

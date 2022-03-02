@@ -18,7 +18,7 @@ function CardViewPage(props) {
           <Grid container rowSpacing={6} columnSpacing={6} direction="row" alignItems="center" justifyContent="center">
             <Grid item>
                 <Paper elevation={3}>
-                    <img className="App-NFTimage" component="img" src={KrakNFT0} alt="card image"/>
+                    <img className="App-NFTimage" component="img" src={KrakNFT0} alt="card"/>
                 </Paper>
             </Grid>
             <Grid item xs={5}>
