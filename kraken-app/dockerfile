@@ -1,0 +1,14 @@
+from inputoutput/cardano-rosetta
+
+WORKDIR /kraken-app
+
+ENV PATH /kraken-app/node_modules/.bin:$PATH
+
+copy package.json ./
+copy package-lock.json ./
+
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+
+# add app
+COPY . ./

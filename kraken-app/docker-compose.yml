@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+
+  sample:
+    env_file:
+      .env
+    container_name: Kraken-App-Dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/kraken-app'
+      - '/kraken-app/node_modules'
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
