@@ -1,10 +1,8 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import NamiLogo from '../../NamiLogo.svg'
-import CloudIcon from '@mui/icons-material/Cloud';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
@@ -68,18 +66,9 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-
             <Grid container spacing={1}direction="row" alignItems="center" >
-            <Grid item onClick={() => {redirect("/")}} style={{...format}}>
-                    <img className="App-logo" component="img" src={logo}/>
-                </Grid>
-                <Grid item>
-                    <CloudIcon fontSize="small"/>
-                </Grid>
-                <Grid item>
-                    <Typography variant="subtitle2" component="div">
-                    {props.network}
-                    </Typography>
+            <Grid item onClick={() => {redirect("/")}} style={{...format}} >
+                    <img className="App-logo" component="img" src={logo} alt="kraken logo"/>
                 </Grid>
             </Grid>
                 
