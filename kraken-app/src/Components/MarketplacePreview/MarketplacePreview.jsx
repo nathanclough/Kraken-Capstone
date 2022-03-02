@@ -11,7 +11,6 @@ import KrakNFT2 from '../../KrakNFT2.png';
 const cards = [0, 1, 2];
 
 function MarketplacePreview(props) {
-
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
