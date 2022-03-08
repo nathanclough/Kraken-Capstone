@@ -1,18 +1,15 @@
-version: '3.7'
+# docker-compose.yml
+version: "3.8"
 
 services:
-
-  sample:
-    env_file:
-      .env
-    container_name: Kraken-App-Dev
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - '.:/kraken-app'
-      - '/kraken-app/node_modules'
+      - ./:/kraken-app:delegated
+      - /node_modules
     ports:
-      - 3001:3000
+      - 3000:3000
     environment:
       - CHOKIDAR_USEPOLLING=true
