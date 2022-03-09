@@ -11,4 +11,4 @@ function Marketplace() {
     )
 
 }
-export default Marketplace
+export default Marketplace;

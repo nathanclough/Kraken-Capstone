@@ -6,6 +6,7 @@ import Profile from './Pages/Profile';
 import Marketplace from './Pages/Marketplace';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar.jsx';
+import CardView from './Pages/CardView';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="profile" element={<Profile/>} />
           <Route path="marketplace" element={<Marketplace/>}/>
+          <Route path="view" element={<CardView/>}/>
           <Route path="*" element={<div className='App-Page'>Invalid URL</div>}/>
         </Routes>
         </div>  

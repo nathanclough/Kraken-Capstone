@@ -10,6 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import logo from "../../logo-Recovered.png";
+
 const format = {
     cursor:'pointer'
 }
@@ -66,9 +67,14 @@ function Navbar(props) {
     return( 
       <AppBar position="fixed">
         <Toolbar>
-            <Grid container spacing={1}direction="row" alignItems="center" >
-            <Grid item onClick={() => {redirect("/")}} style={{...format}} >
+            <Grid container spacing={1} direction="row" alignItems="center" >
+                <Grid item onClick={() => {redirect("/")}} style={{...format}} >
                     <img className="App-logo" component="img" src={logo} alt="kraken logo"/>
+                </Grid>
+                <Grid item onClick={() => {redirect("/marketplace")}} style={{...format}} >
+                    <Button variant="overline">
+                      Marketplace
+                    </Button>
                 </Grid>
             </Grid>
                 
