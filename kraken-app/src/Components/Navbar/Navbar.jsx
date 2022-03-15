@@ -9,12 +9,13 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-import logo from "../../logo-Recovered.png";
+import logo from "../../logo-Recovered.png"
+
 const format = {
     cursor:'pointer'
 }
-
 function Navbar(props) {
+    
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -33,6 +34,7 @@ function Navbar(props) {
         if(props.connected)
         { 
              return (
+               
     <div>
       <Button
         id="demo-positioned-button"
@@ -54,30 +56,30 @@ function Navbar(props) {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={() => {redirect("/profile"); handleClose()}}>My Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Disconnect</MenuItem>
       </Menu>
     </div>
   );   
         }
         else{
-            return <></>
+          return(<img onClick={() => window.location.href = "https://namiwallet.io/"} src={NamiLogo} className="Nami-logo" alt="n-logo" />);
+          
         }
     }
     return( 
+      
       <AppBar position="fixed">
         <Toolbar>
             <Grid container spacing={1}direction="row" alignItems="center" >
-            <Grid item onClick={() => {redirect("/")}} style={{...format}} >
+            <Grid item onClick={() => {redirect("/")}} style={{...format}}  >
                     <img className="App-logo" component="img" src={logo} alt="kraken logo"/>
                 </Grid>
             </Grid>
-                
             <div style={{display:"flex",flexDirection:"row",alignItems:"center",gap:"5px"}}>
                 {userAvatar()}
-                <Button style={{whiteSpace: "nowrap"}} color="inherit" variant="outlined">
+                <Button style={{whiteSpace: "nowrap"}} color="inherit" variant="outlined" onClick={() => {props.Connect()}}>
                     {namiMsg}  
                 </Button> 
-                <img onClick={() => window.location.href = "https://namiwallet.io/"} src={NamiLogo} className="Nami-logo" alt="n-logo" />
+                
             </div>
         </Toolbar>
       </AppBar>
