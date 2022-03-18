@@ -68,6 +68,12 @@ function CardViewPage(props) {
               <Typography variant="subtitle2" gutterBottom>
                 Blockchain: Cardano
               </Typography>
+              <Typography variant="subtitle2" gutterBottom>
+                Popularity: 
+              </Typography>
+              <Typography variant="subtitle2" gutterBottom>
+                Rarity: 
+              </Typography>
             </Grid>
             <Grid item xs={7.85}>
               <Typography variant="h6" gutterBottom>
