@@ -4,7 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import Gallery from './Gallery'
+import Transaction from './Transaction'
 const format = {
     fontWeight: "bold",
     marginLeft: "auto",
@@ -23,7 +24,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -53,17 +54,17 @@ export default function BasicTabs() {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 0, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="My Gallery" {...a11yProps(0)} style={{...format}} />
           <Tab label="Transactions" {...a11yProps(1)} style={{...format}} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+        <Gallery/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <Transaction/>
       </TabPanel>
     </Box>
   );

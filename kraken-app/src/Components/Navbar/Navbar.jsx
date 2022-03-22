@@ -9,11 +9,24 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-import logo from "../../logo-Recovered.png"
+import logo from "../../logo-Recovered.png";
+import { styled } from '@mui/styles';
+import icon from "../../icon.png";
 
 const format = {
     cursor:'pointer'
 }
+
+const MyButton = styled(Button)({
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+  fontWeight: 'bold'
+});
 function Navbar(props) {
     
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,7 +39,7 @@ function Navbar(props) {
     };
 
     const navigate = useNavigate();
-    const namiMsg = props.connected ? "Connected" : "Connect Wallet";
+    const namiMsg = props.connected ? "Connected" : "Connect";
     const redirect = (url) =>{
         navigate(url)
     }
@@ -43,7 +56,7 @@ function Navbar(props) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-          <Avatar src="/broken-image.jpg"/>
+          <Avatar src={icon}/>
       </Button>
       <Menu
         id="fade-menu"
@@ -61,7 +74,9 @@ function Navbar(props) {
   );   
         }
         else{
-          return(<img onClick={() => window.location.href = "https://namiwallet.io/"} src={NamiLogo} className="Nami-logo" alt="n-logo" />);
+          return(
+          <img onClick={() => window.location.href = "https://namiwallet.io/"} src={NamiLogo} className="Nami-logo" alt="n-logo" style={{...format}}/>
+          );
           
         }
     }
@@ -76,9 +91,9 @@ function Navbar(props) {
             </Grid>
             <div style={{display:"flex",flexDirection:"row",alignItems:"center",gap:"5px"}}>
                 {userAvatar()}
-                <Button style={{whiteSpace: "nowrap"}} color="inherit" variant="outlined" onClick={() => {props.Connect()}}>
+                <MyButton onClick={() => {props.Connect()}} style={{position: 'relative', top: '15%', left: 2, right: 10, bottom: 0}}>
                     {namiMsg}  
-                </Button> 
+                </MyButton> 
                 
             </div>
         </Toolbar>
