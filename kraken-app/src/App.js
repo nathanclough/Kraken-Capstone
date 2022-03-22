@@ -9,7 +9,6 @@ import Navbar from './Components/Navbar/Navbar.jsx';
 import { useState, useEffect } from 'react';
 import CardView from './Pages/CardView';
 
-
 function App() {
   const [connected,setConnected] = useState(false)
 
@@ -37,7 +36,11 @@ function App() {
       ckWallet()
      }, 50)
   }, []);
-
+  
+  let redir;
+  if(connected === true){
+    redir = <Route path="profile" element={<Profile/>} />;
+  }
 
   return (
     <div >
@@ -46,7 +49,7 @@ function App() {
       <Navbar network="Cardano-testnet" connected={connected} Connect = {Connect} ckWallet = {ckWallet}/>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="profile" element={<Profile/>} />
+          {redir}
           <Route path="marketplace" element={<Marketplace/>}/>
           <Route path="view" element={<CardView/>}/>
           <Route path="*" element={<div className='App-Page'>Invalid URL</div>}/>
