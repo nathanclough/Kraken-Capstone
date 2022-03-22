@@ -27,6 +27,7 @@ const MyButton = styled(Button)({
   padding: '0 30px',
   fontWeight: 'bold'
 });
+
 function Navbar(props) {
     
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -84,9 +85,15 @@ function Navbar(props) {
       
       <AppBar position="fixed">
         <Toolbar>
+
             <Grid container spacing={1}direction="row" alignItems="center" >
             <Grid item onClick={() => {redirect("/")}} style={{...format}}  >
                     <img className="App-logo" component="img" src={logo} alt="kraken logo"/>
+                </Grid>
+                <Grid item onClick={() => {redirect("/marketplace")}} style={{...format}} >
+                    <Button variant="overline">
+                      Marketplace
+                    </Button>
                 </Grid>
             </Grid>
             <div style={{display:"flex",flexDirection:"row",alignItems:"center",gap:"5px"}}>

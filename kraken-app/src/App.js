@@ -7,6 +7,7 @@ import Marketplace from './Pages/Marketplace';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar.jsx';
 import { useState, useEffect } from 'react';
+import CardView from './Pages/CardView';
 
 function App() {
   const [connected,setConnected] = useState(false)
@@ -35,9 +36,8 @@ function App() {
       ckWallet()
      }, 50)
   }, []);
-
+  
   let redir;
-
   if(connected === true){
     redir = <Route path="profile" element={<Profile/>} />;
   }
@@ -51,6 +51,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           {redir}
           <Route path="marketplace" element={<Marketplace/>}/>
+          <Route path="view" element={<CardView/>}/>
           <Route path="*" element={<div className='App-Page'>Invalid URL</div>}/>
         </Routes>
         </div>  
