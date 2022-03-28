@@ -1,4 +1,5 @@
 FROM inputoutput/cardano-rosetta:1.7.0-testnet
+
 WORKDIR /kraken-app
 
 COPY ./package*.json ./
