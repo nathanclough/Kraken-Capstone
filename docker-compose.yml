@@ -1,0 +1,40 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  kraken-react-app:
+    container_name: kraken-react-app
+    build:
+      context: ./kraken-app
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+      - '/app/package.json'
+      - 'cardano-node-ipc:/ipc'
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  
+  cardano-node:
+        environment:
+            - CARDANO_NODE_SOCKET_PATH=$HOME/ipc/node.socket
+        volumes:
+            - 'cardano-node-ipc:/ipc'
+            - 'cardano-node-data:/data'
+        command: run --config  data/config/testnet-config.json \
+                     --database-path data/db \
+                     --topology data/config/testnet-topology.json \ 
+                     --host-addr 0.0.0.0 \
+                     --port 3001 \
+                     --socket-path ipc/node.socket
+        image: inputoutput/cardano-node
+  
+volumes:
+  cardano-node-ipc:
+    external: true
+    name: cardano-node-ipc
+  cardano-node-data:
+    external: true
+    name: cardano-node-data

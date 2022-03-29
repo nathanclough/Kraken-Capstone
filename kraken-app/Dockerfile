@@ -1,10 +1,18 @@
-FROM inputoutput/cardano-rosetta:1.7.0-testnet
+# pull official base image
+FROM node:13.12.0-alpine
 
-WORKDIR /kraken-app
+# set working directory
+WORKDIR /app
 
-COPY ./package*.json ./
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-ENV PATH /app/node-modules/.bin:$PATH
-
+# install app dependencies
 RUN npm install 
-ENTRYPOINT ["bash","entrypoint.sh"]
+RUN npm install react-scripts@3.4.1 -g --silent
+
+# # add app
+COPY . ./
+
+# start app
+CMD ["npm", "start"]
