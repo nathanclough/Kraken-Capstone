@@ -19,11 +19,16 @@ services:
   
   cardano-node:
         environment:
-            - NETWORK=testnet
             - CARDANO_NODE_SOCKET_PATH=$HOME/ipc/node.socket
         volumes:
             - 'cardano-node-ipc:/ipc'
             - 'cardano-node-data:/data'
+        command: run --config  data/config/testnet-config.json \
+                     --database-path data/db \
+                     --topology data/config/testnet-topology.json \ 
+                     --host-addr 0.0.0.0 \
+                     --port 3001 \
+                     --socket-path ipc/node.socket
         image: inputoutput/cardano-node
   
 volumes:
