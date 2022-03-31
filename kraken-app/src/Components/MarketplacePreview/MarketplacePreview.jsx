@@ -42,9 +42,9 @@ function MarketplacePreview(props) {
     
   }, [])
 
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
+  
   const handleChange = (event, value) => {
-    var totalPage = utxos.length/3 +1
     console.log(event.target)
     setPage(value + 1);
   };
@@ -64,7 +64,7 @@ function MarketplacePreview(props) {
             )}
           </Box>
           <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-          <Pagination count={0} page={0} onChange={handleChange} />
+          <Pagination count={0} page={page} onChange={handleChange} />
           </Stack>
         </Container>
       </Box>
