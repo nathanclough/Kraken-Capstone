@@ -11,7 +11,7 @@
 
 .App-NFTimage {
   height: 500px;
-  width: auto;
+  width: 500px;
   pointer-events: none;
 }
 
