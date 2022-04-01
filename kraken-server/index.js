@@ -3,6 +3,9 @@ const CardanocliJs = require("cardanocli-js");
 var cors = require('cors')
 const fs = require("fs");
 const CSL = require("@emurgo/cardano-serialization-lib-nodejs")
+const POLICY = "c8b21d0e3825ac82db8add095b926d0a1be026a1cd0de4e752a87a16"
+const mintTxs ={}
+mintTxs[POLICY] = "e95f64857daf4ff763d9dff829d62c0c192b0f7818a7e87a4fc6c3b075572547"
 
 const cardanocliJs = new CardanocliJs({
     network: "testnet-magic 1097911063",
@@ -19,7 +22,6 @@ const PORT = process.env.PORT || 3003;
 const wallet = cardanocliJs.wallet("KrakNFT");
 const realAssetName = "KrakNFT"
 const hexAssetName = Buffer.from(realAssetName).toString('hex')
-console.log(cardanocliJs.queryUtxo("addr_test1qr65ngpmln0268ye88fan86hk2cvp2rf4sxtxymartvap3y68hdqaa8nm03pd7gc0wereyk8eyzst08hkpf54j5csk6s5396tw"))
 
 const app = express();
 app.use(cors())
@@ -30,8 +32,35 @@ app.get("/api", (req, res) => {
 
 app.get("/balance",(req,res) => {
   let v = CSL.Value.from_bytes(Buffer.from(req.query.balance,'hex') )
-  console.log(v.multiassets())
-  res.json({balance: v.coin().to_str() })
+  
+  if(v.multiasset()){
+    var keys = v.multiasset().keys()
+
+    var key = keys.get(0)
+    var policyHex = Buffer.from(key.to_bytes()).toString('hex')
+    
+    if(policyHex != POLICY){
+      res.json({"ERROR": "Invalid Policy Id"})
+    }
+    
+    var asset = v.multiasset().get(key)
+    
+    var name = Buffer.from(
+      asset.keys().get(0).name(),
+      "hex"
+    ).toString();
+    
+    var amt = asset.get(asset.keys().get(0)).to_str()
+    
+    res.json({
+      txHash: mintTxs[policyHex],
+      policyId: policyHex,
+      tokenName: name,
+      value : amt })
+  }
+  else{
+  res.json({"ERROR": "No Tokens"})
+  }
 })
 
 app.get("/mintUtxos", (req, res) =>{

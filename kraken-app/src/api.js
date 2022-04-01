@@ -10,7 +10,7 @@ const getImageLink = (image) =>`https://ipfs.io/${image.replace(":","")}`
 
 const getMintUtxos =  async () => axios.get(url).then( (response) => response.data["result"])
 
-const getMetaData = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/metadata`,config)
+const getMetadata = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/metadata`,config)
 .then( (response) => { 
     try
     {
@@ -29,7 +29,7 @@ const getMetaData = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/me
 export class KrakenAPI {
     async getMarketplaceNfts(){
         return getMintUtxos().then((uts) =>{
-            return uts.map( tx => getMetaData(tx) )
+            return uts.map( tx => getMetadata(tx) )
             }).then(res => Promise.all(res).then( (res) => res.filter(x => x !== null)))
         
     }
@@ -39,6 +39,6 @@ export class KrakenAPI {
     }
 
     getBalance(balance){
-        return axios.get("http://localhost:3003/balance", {params: {balance}})
+        return axios.get("http://localhost:3003/balance", {params: {balance}}).then(r => [getMetadata(r.data)])
     }
 }

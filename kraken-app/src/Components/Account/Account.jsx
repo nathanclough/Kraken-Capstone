@@ -50,9 +50,16 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [nfts,setNfts] = React.useState([]);
 
   React.useEffect( () => {
-    window.cardano.nami.enable().then(res => res.getBalance().then(bytes => api.getBalance(bytes).then(res => console.log(res))))
+    window.cardano.nami.enable()
+      .then(res => res.getBalance()
+        .then(bytes => api.getBalance(bytes)
+        .then(res => setNfts(res)
+          )
+        )
+      )
   }, [])
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -67,7 +74,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Gallery/>
+        <Gallery nfts={nfts}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Transaction/>
