@@ -26,7 +26,7 @@ function CardViewPage(props) {
             </Grid>
             <Grid item xs={5}>
                 <Typography variant="h4" component="div" gutterBottom>
-                    Name?
+                    Name: {nft.metadata.name}
                 </Typography>
                 <Typography variant="h5" gutterBottom>
                     Collection Name: {nft.metadata.name}
