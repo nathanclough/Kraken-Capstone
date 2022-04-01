@@ -4,41 +4,16 @@ import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import NFTCard from '../NFTCard/NFTCard.jsx';
-import axios from 'axios'
+import { KrakenAPI } from '../../api.js';
 
-const url = "http://localhost:3003/mintUtxos"
-const blockfrost = "https://cardano-testnet.blockfrost.io/api/v0/txs/"
-const config = {headers: {
-  "project_id": "testnet7yHbEpE8tPf15bJ3j8A5BFrFCbNiNFCs"
-}}
+const api = new KrakenAPI()
 
 
 function MarketplacePreview(props) {
-  const [utxos, setUtxos] = React.useState([])
-
-  const getMintUtxos =  async () => axios.get(url).then( (response) => response.data["result"])
-  
-  const getMetaData = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/metadata`,config)
-  .then( (response) => { 
-      try
-      {
-        // If policy id doesn't match then the NFT is fake and would throw error 
-        utxo.metadata = response.data[0].json_metadata[utxo.policyId][utxo.tokenName]
-        return utxo
-      }
-      catch(error){
-        console.log(utxo)
-        return null
-      }
-    }
-  ).catch(error => console.log(error))
-
-  const getImageLink = (image) =>`https://ipfs.io/${image.replace(":","")}`
+  const [nfts, setNfts] = React.useState([])
 
   React.useEffect( () =>{
-    getMintUtxos().then((uts) =>{
-      return uts.map( tx => getMetaData(tx) )
-      }).then(res => Promise.all(res).then( (res) => setUtxos(res.filter(x => x !== null))))
+    api.getMarketplacePreview().then( (res) => setNfts(res))
     
   }, [])
 
@@ -55,10 +30,10 @@ function MarketplacePreview(props) {
     <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, flexWrap: 'wrap' }}>
       <Container sx={{ py: 8 }} maxWidth="md">
           <Box sx={{ display: 'flex' }}> 
-            {utxos.map( (nft, index) => {
+            {nfts.map( (nft, index) => {
               return (
               <Box sx={{ display: 'flex', p: 1, m: 1, flexGrow: 1 }}>
-                  <NFTCard name={nft.metadata.name} image={getImageLink(nft.metadata.image)}/>
+                  <NFTCard nft={nft} name={nft.metadata.name} image={nft.metadata.image}/>
               </Box>)
             }
             )}
