@@ -4,13 +4,15 @@
 }
 
 .App-logo {
-  height: 80px;
+  height: 45px;
   width: auto;
   pointer-events: none;
 }
-.Nami-logo{
+
+.App-NFTimage {
+  height: 500px;
   width: auto;
-  height: 45px;
+  pointer-events: none;
 }
 
 .Nami-logo{
