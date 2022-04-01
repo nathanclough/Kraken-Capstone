@@ -37,4 +37,8 @@ export class KrakenAPI {
     getMarketplacePreview(){
         return this.getMarketplaceNfts().then(res => res.slice(0,3))
     }
+
+    getBalance(balance){
+        return axios.get("http://localhost:3003/balance", {params: {balance}})
+    }
 }

@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Gallery from './Gallery'
 import Transaction from './Transaction'
+import { KrakenAPI } from '../../api.js';
+
+const api = new KrakenAPI()
 const format = {
     fontWeight: "bold",
     marginLeft: "auto",
@@ -48,6 +51,9 @@ function a11yProps(index) {
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
 
+  React.useEffect( () => {
+    window.cardano.nami.enable().then(res => res.getBalance().then(bytes => api.getBalance(bytes).then(res => console.log(res))))
+  }, [])
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
