@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '../../App.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -16,7 +17,7 @@ function CardViewPage(props) {
     <>
       <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, justifyContent: "center"}}>
       <Paper elevation={3}>
-        <Container sx={{ py: 8 }} maxWidth="lg">
+        <Container sx={{ py: 8 }} maxWidth="xl">
           <Grid container rowSpacing={6} columnSpacing={6} direction="row" alignItems="center" justifyContent="center">
             <Grid item>
                 <Paper elevation={3}>
@@ -25,7 +26,7 @@ function CardViewPage(props) {
             </Grid>
             <Grid item xs={5}>
                 <Typography variant="h4" component="div" gutterBottom>
-                    
+                    Name?
                 </Typography>
                 <Typography variant="h5" gutterBottom>
                     Collection Name: {nft.metadata.name}
@@ -39,13 +40,13 @@ function CardViewPage(props) {
             </Grid>
             <Grid item marginBottom={60}>
               <Typography variant="overline" gutterBottom>
-                Price ADA 0.0000
+                Price ADA 
               </Typography>
             </Grid>
             <Grid item marginBottom={60}>
               <Button variant="contained" size="small">Buy</Button>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={11}>
               <Typography variant="h6" gutterBottom>
                 Details
               </Typography>
@@ -65,7 +66,7 @@ function CardViewPage(props) {
                 Rarity: 
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item >
               <Typography variant="h6" gutterBottom>
                 Other NFT's
               </Typography>
