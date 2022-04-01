@@ -16,7 +16,12 @@ function NFTCard(props) {
     };
     const navigate = useNavigate();
     const redirect = (url) =>{
-      navigate(url)
+      console.log(props.nft)
+      navigate(url,{
+        state:{
+          nft : props.nft
+        }
+      })
     }
 
   return (

@@ -7,9 +7,14 @@ import KrakNFT0 from '../../KrakNFT0.png';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import MarketplacePreview from '../../Components/MarketplacePreview/MarketplacePreview.jsx';
+import { useLocation } from 'react-router-dom';
 
 function CardViewPage(props) {
-
+  const location = useLocation()
+  const nft = location.state.nft
+  React.useEffect(() =>{
+    console.log(location.state)
+  },[])
   return (
     <>
       <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, justifyContent: "center"}}>
@@ -18,30 +23,21 @@ function CardViewPage(props) {
           <Grid container rowSpacing={6} columnSpacing={6} direction="row" alignItems="center" justifyContent="center">
             <Grid item>
                 <Paper elevation={3}>
-                    <img className="App-NFTimage" component="img" src={KrakNFT0} alt="card"/>
+                    <img className="App-NFTimage" component="img" src={nft.metadata.image} alt="card"/>
                 </Paper>
             </Grid>
             <Grid item xs={5}>
                 <Typography variant="h4" component="div" gutterBottom>
-                    NFT 0
+                    
                 </Typography>
                 <Typography variant="h5" gutterBottom>
-                    Collection Name: Pirates
-                </Typography>
-                <Typography variant="body1" color="text.secondary" gutterBottom>
-                    Owned By KrakNFT
+                    Collection Name: {nft.metadata.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                    ID: 1030114
+                    ID: {nft.metadata.id}
                 </Typography>
                 <Typography variant="h6" gutterBottom>
-                    Description
-                </Typography>
-                <Typography variant="body1" color="text.secondary" gutterBottom>
-                    Created By 
-                </Typography>
-                <Typography variant="subtitle2" gutterBottom>
-                    This NFT blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+                    {nft.metadata.description}
                 </Typography>
             </Grid>
             <Grid item marginBottom={60}>
@@ -57,13 +53,10 @@ function CardViewPage(props) {
                 Details
               </Typography>
               <Typography variant="subtitle2" gutterBottom>
-                Contract Address: 
+                Mint Transaction: {nft.txHash} 
               </Typography>
               <Typography variant="subtitle2" gutterBottom>
-                Token ID: 
-              </Typography>
-              <Typography variant="subtitle2" gutterBottom>
-                Token Standard: 
+                Policy ID: {nft.policyId}
               </Typography>
               <Typography variant="subtitle2" gutterBottom>
                 Blockchain: Cardano
@@ -75,17 +68,9 @@ function CardViewPage(props) {
                 Rarity: 
               </Typography>
             </Grid>
-            <Grid item xs={7.85}>
-              <Typography variant="h6" gutterBottom>
-                About The Collection
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                The Pirates Collection is 
-              </Typography>
-            </Grid>
             <Grid item>
               <Typography variant="h6" gutterBottom>
-                Others From This Collection
+                Other NFT's
               </Typography>
               <MarketplacePreview />
             </Grid>
