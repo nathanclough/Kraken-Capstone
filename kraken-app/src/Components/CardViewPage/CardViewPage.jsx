@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import KrakNFT0 from '../../KrakNFT0.png';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import MarketplacePreview from '../../Components/MarketplacePreview/MarketplacePreview.jsx';
@@ -12,9 +11,7 @@ import { useLocation } from 'react-router-dom';
 function CardViewPage(props) {
   const location = useLocation()
   const nft = location.state.nft
-  React.useEffect(() =>{
-    console.log(location.state)
-  },[])
+  
   return (
     <>
       <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, justifyContent: "center"}}>
