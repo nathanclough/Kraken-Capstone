@@ -9,19 +9,41 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './kraken-app:/app'
-      - '/app/node_modules'
+      - './kraken-app/node_modules:/app/node_modules'
       - 'cardano-node-ipc:/ipc'
       - 'cardano-node-data:/data'
     ports:
-      - 3001:3000
+      - 3002:3000
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=0
     stdin_open: true
     tty: true
   
+  kraken-server:
+    container_name: kraken-server
+    environment:
+      - CARDANO_NODE_SOCKET_PATH=/app/ipc/node.socket
+    build:
+      context: ./kraken-server
+      dockerfile: Dockerfile
+    volumes:
+      - './kraken-server:/app'
+      - './kraken-server/node_modules:/app/node_modules'
+      - 'cardano-node-ipc:/ipc'
+      - 'cardano-node-data:/data'
+    ports:
+      - 3003:3003
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start 
+
+    stdin_open: true
+    tty: true
+
   cardano-node:
         environment:
-            - CARDANO_NODE_SOCKET_PATH=$HOME/ipc/node.socket
+            - CARDANO_NODE_SOCKET_PATH=/ipc/node.socket
         volumes:
             - 'cardano-node-ipc:/ipc'
             - 'cardano-node-data:/data'

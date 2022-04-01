@@ -4,75 +4,72 @@ import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import NFTCard from '../NFTCard/NFTCard.jsx';
-//import { data } from '../../CardData.js';
-import KrakNFT0 from '../../KrakNFT0.png';
-import KrakNFT1 from '../../KrakNFT1.png';
-import KrakNFT2 from '../../KrakNFT2.png';
+import axios from 'axios'
 
-const cards = [0, 1, 2];
+const url = "http://localhost:3003/mintUtxos"
+const blockfrost = "https://cardano-testnet.blockfrost.io/api/v0/txs/"
+const config = {headers: {
+  "project_id": "testnet7yHbEpE8tPf15bJ3j8A5BFrFCbNiNFCs"
+}}
 
-const getImage = (index) => {
-  if (index === 0 ){
-    return KrakNFT0
-  }
-  else if (index === 1){
-    return KrakNFT1
-  }
-  else{
-    return KrakNFT2;
-  }
-}
 
 function MarketplacePreview(props) {
-  const [page, setPage] = React.useState(1);
+  const [utxos, setUtxos] = React.useState([])
+
+  const getMintUtxos =  async () => axios.get(url).then( (response) => response.data["result"])
+  
+  const getMetaData = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/metadata`,config)
+  .then( (response) => { 
+      try
+      {
+        // If policy id doesn't match then the NFT is fake and would throw error 
+        utxo.metadata = response.data[0].json_metadata[utxo.policyId][utxo.tokenName]
+        return utxo
+      }
+      catch(error){
+        console.log(utxo)
+        return null
+      }
+    }
+  ).catch(error => console.log(error))
+
+  const getImageLink = (image) =>`https://ipfs.io/${image.replace(":","")}`
+
+  React.useEffect( () =>{
+    getMintUtxos().then((uts) =>{
+      return uts.map( tx => getMetaData(tx) )
+      }).then(res => Promise.all(res).then( (res) => setUtxos(res.filter(x => x !== null))))
+    
+  }, [])
+
+  const [page, setPage] = React.useState(0);
+  
   const handleChange = (event, value) => {
-    setPage(value);
+    console.log(event.target)
+    setPage(value + 1);
   };
+
 
   return (
     <>
     <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, flexWrap: 'wrap' }}>
       <Container sx={{ py: 8 }} maxWidth="md">
           <Box sx={{ display: 'flex' }}> 
-            {cards.map((card, index) => (
+            {utxos.map( (nft, index) => {
+              return (
               <Box sx={{ display: 'flex', p: 1, m: 1, flexGrow: 1 }}>
-                  <NFTCard name={`Nft ${index}`} image={getImage(index)}/>
-              </Box>
-            ))}
+                  <NFTCard name={nft.metadata.name} image={getImageLink(nft.metadata.image)}/>
+              </Box>)
+            }
+            )}
           </Box>
           <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-          <Pagination count={3} page={page} onChange={handleChange} />
+          <Pagination count={0} page={page} onChange={handleChange} />
           </Stack>
         </Container>
       </Box>
     </>
   );
 }
+
 export default MarketplacePreview;
-
-/*function MarketplacePreview(props) {
-
-  const [page, setCurrentPage] = React.useState(1);
-  const handleChange = (event, page) => {
-    setCurrentPage(page)
-  }
-
-  return (
-    <>
-      <Box sx={{ bgcolor: 'background.paper', pt: 1, pb: 6, display: 'flex', flexGrow: 1, flexWrap: 'wrap'}}>
-        <Container sx={{ py: 1 }} maxWidth="md">
-          <Box sx={{ display: 'flex' }}> 
-            {data.map((cards, key) => (
-              <NFTCard key={data} name={data.name} image={data.image} />
-            ))}
-          </Box>
-          <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-            <Pagination count={3} page={page} onChange={handleChange} />
-          </Stack>
-        </Container>
-      </Box>
-    </>
-  );
-
-}
-export default MarketplacePreview;*/
