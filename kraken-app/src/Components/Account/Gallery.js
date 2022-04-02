@@ -36,16 +36,17 @@ function Gallery() {
   const classes = useStyles();
   return (
     <Grid
-    sx={{ bgcolor: 'background.paper', pt: 6, pb: 6, display: 'flex', flexGrow: 1, flexWrap: 'wrap'}}
+    sx={{ bgcolor: 'background.paper', pt: 8, pb: 8, display: 'flex', flexGrow: 1, flexWrap: 'wrap'}}
       container
-      spacing={4}
-      className={classes.gridContainer}
-      justify="center"
+      columnSpacing="row"
+      spacing={2}
+      className={classes.container}
+      justifyContent="flex-end"
     >
       {name.map((card, index) => (
-        <Grid item xs={12} sm={4} md={4}>
+        <Grid item xs={4} sm={4} md={3}>
               <Card key={index} name={getName(index)} image={getImage(index)} />
-              </Grid>
+        </Grid>
             ))}
     </Grid>
   );
