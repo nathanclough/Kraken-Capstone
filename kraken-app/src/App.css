@@ -20,6 +20,10 @@
   height: 45px;
 }
 
+.App-AboutLogo {
+  height: 200px;
+  width: auto;
+}
 
 .App-header {
   background-color: #ffffff;
