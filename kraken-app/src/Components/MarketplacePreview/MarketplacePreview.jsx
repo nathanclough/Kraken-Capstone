@@ -27,8 +27,8 @@ function MarketplacePreview(props) {
 
   return (
     <>
-    <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, flexWrap: 'wrap' }}>
-      <Container sx={{ py: 8 }} maxWidth="md">
+    <Box sx={{ bgcolor: 'background.paper', pt: 2, pb: 2, display: 'flex', flexGrow: 1, flexWrap: 'wrap' }}>
+      <Container maxWidth="md">
           <Box sx={{ display: 'flex' }}> 
             {nfts.map( (nft, index) => {
               return (
