@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -70,11 +71,20 @@ function MarketplacePage(props) {
           <Typography variant="h6" gutterBottom component="div">
             NFTs for Sale by KrakNFT
           </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap' }}> 
+          <Grid
+            sx={{ bgcolor: 'background.paper', pt: 8, pb: 8, display: 'flex', flexGrow: 1, flexWrap: 'wrap'}}
+            container
+            columnSpacing="row"
+            spacing={2}
+            className={MarketplacePage.container}
+            justifyContent="flex-end"
+          > 
             {nfts.map((nft, index) => (
+              <Grid item xs={4} sm={4} md={3}>
                   <NFTCard key={index} nft={nft} name={nft.metadata.name} image={nft.metadata.image}/>
+              </Grid>
                   ))}
-          </Box>
+          </Grid>
         </Container>
       </TabPanel>
       <TabPanel value={value} index={1}>

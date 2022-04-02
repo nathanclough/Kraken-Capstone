@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Gallery from './Gallery'
 import Transaction from './Transaction'
+import { KrakenAPI } from '../../api.js';
+
+const api = new KrakenAPI()
 const format = {
     fontWeight: "bold",
     marginLeft: "auto",
@@ -47,7 +50,27 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [nfts,setNfts] = React.useState([]);
 
+  // use effect runs on page load 
+  React.useEffect( () => {
+    try{
+      // enable wallet and get balance this return encoded bytes 
+    window.cardano.nami.enable()
+      .then(res => res.getBalance()
+        // Call our appi to decode the balance with cardano serialization lib 
+        .then(bytes => api.getBalance(bytes)
+        // set the results 
+        .then(res => {
+          console.log(res)
+          setNfts(res)}
+          )
+        )
+      ) }
+      catch(error){
+        console.log(error)
+      }
+  }, [])
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -61,7 +84,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Gallery/>
+        <Gallery nfts={nfts}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Transaction/>

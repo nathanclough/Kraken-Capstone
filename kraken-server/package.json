@@ -10,9 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emurgo/cardano-serialization-lib-nodejs": "^10.0.4",
     "cardanocli-js": "^4.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "i": "^0.3.7",
+    "npm": "^8.6.0",
     "os": "^0.1.2",
     "path": "^0.12.7"
   }
