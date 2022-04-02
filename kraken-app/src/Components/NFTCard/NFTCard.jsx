@@ -16,7 +16,12 @@ function NFTCard(props) {
     };
     const navigate = useNavigate();
     const redirect = (url) =>{
-      navigate(url)
+      console.log(props.nft)
+      navigate(url,{
+        state:{
+          nft : props.nft
+        }
+      })
     }
 
   return (
@@ -37,7 +42,6 @@ function NFTCard(props) {
             </CardContent>
             <CardActions sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
               <Button variant="outlined" size="small" onClick={() => {redirect("/view"); handleClose()}}>View</Button>
-              <Button variant="outlined" size="small">Buy</Button>
             </CardActions>
           </Card>
         </Paper>
