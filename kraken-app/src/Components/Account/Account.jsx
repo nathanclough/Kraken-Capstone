@@ -52,11 +52,15 @@ export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const [nfts,setNfts] = React.useState([]);
 
+  // use effect runs on page load 
   React.useEffect( () => {
     try{
+      // enable wallet and get balance this return encoded bytes 
     window.cardano.nami.enable()
       .then(res => res.getBalance()
+        // Call our appi to decode the balance with cardano serialization lib 
         .then(bytes => api.getBalance(bytes)
+        // set the results 
         .then(res => {
           console.log(res)
           setNfts(res)}
