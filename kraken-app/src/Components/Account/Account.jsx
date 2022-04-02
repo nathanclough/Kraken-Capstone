@@ -56,7 +56,9 @@ export default function BasicTabs() {
     window.cardano.nami.enable()
       .then(res => res.getBalance()
         .then(bytes => api.getBalance(bytes)
-        .then(res => setNfts(res)
+        .then(res => {
+          console.log(res)
+          setNfts(res)}
           )
         )
       )

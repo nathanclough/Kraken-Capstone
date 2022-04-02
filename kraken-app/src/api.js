@@ -39,6 +39,15 @@ export class KrakenAPI {
     }
 
     getBalance(balance){
-        return axios.get("http://localhost:3003/balance", {params: {balance}}).then(r => [getMetadata(r.data)])
+        return axios.get("http://localhost:3003/balance", {params: {balance}}).then(r =>{
+            if(r.data.hasOwnProperty('ERROR')){
+                return []
+            }
+            return getMetadata(r.data)
+                    .then(r => {
+                        console.log(r)
+                    return [r]
+                    })
+    })
     }
 }

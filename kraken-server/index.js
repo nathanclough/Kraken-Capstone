@@ -1,12 +1,12 @@
-// server/index.js
+// Imports and valid keys 
 const CardanocliJs = require("cardanocli-js");
-var cors = require('cors')
+
+// Cardano Node config variables 
 const fs = require("fs");
 const CSL = require("@emurgo/cardano-serialization-lib-nodejs")
 const POLICY = "c8b21d0e3825ac82db8add095b926d0a1be026a1cd0de4e752a87a16"
 const mintTxs ={}
 mintTxs[POLICY] = "e95f64857daf4ff763d9dff829d62c0c192b0f7818a7e87a4fc6c3b075572547"
-
 const cardanocliJs = new CardanocliJs({
     network: "testnet-magic 1097911063",
     era: "alonzo",
@@ -15,21 +15,19 @@ const cardanocliJs = new CardanocliJs({
     socketPath: "/ipc/node.socket",
   });
 
+// Server config 
 const express = require("express");
-
+var cors = require('cors')
 const PORT = process.env.PORT || 3003;
+const app = express();
+app.use(cors())
 
+// Mint wallet 
 const wallet = cardanocliJs.wallet("KrakNFT");
 const realAssetName = "KrakNFT"
 const hexAssetName = Buffer.from(realAssetName).toString('hex')
 
-const app = express();
-app.use(cors())
-
-app.get("/api", (req, res) => {
-    res.json({ message: cardanocliJs.queryTip() });
-  });
-
+// Endpoint for verifying assets in wallet 
 app.get("/balance",(req,res) => {
   let v = CSL.Value.from_bytes(Buffer.from(req.query.balance,'hex') )
   
@@ -39,10 +37,6 @@ app.get("/balance",(req,res) => {
     var key = keys.get(0)
     var policyHex = Buffer.from(key.to_bytes()).toString('hex')
     
-    if(policyHex != POLICY){
-      res.json({"ERROR": "Invalid Policy Id"})
-    }
-    
     var asset = v.multiasset().get(key)
     
     var name = Buffer.from(
@@ -51,18 +45,24 @@ app.get("/balance",(req,res) => {
     ).toString();
     
     var amt = asset.get(asset.keys().get(0)).to_str()
-    
-    res.json({
-      txHash: mintTxs[policyHex],
-      policyId: policyHex,
-      tokenName: name,
-      value : amt })
+   
+    if(policyHex != POLICY){
+      res.json({"ERROR": "Invalid Policy Id"}) 
+    }
+    else{
+      res.json({
+        txHash: mintTxs[policyHex],
+        policyId: policyHex,
+        tokenName: name,
+        value : amt })
+    }
   }
   else{
   res.json({"ERROR": "No Tokens"})
   }
 })
 
+// Endpoints for 
 app.get("/mintUtxos", (req, res) =>{
   let utxos = wallet.balance()
     .utxo.map(tx => {
