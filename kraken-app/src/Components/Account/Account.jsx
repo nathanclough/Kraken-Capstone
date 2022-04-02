@@ -53,6 +53,7 @@ export default function BasicTabs() {
   const [nfts,setNfts] = React.useState([]);
 
   React.useEffect( () => {
+    try{
     window.cardano.nami.enable()
       .then(res => res.getBalance()
         .then(bytes => api.getBalance(bytes)
@@ -61,7 +62,10 @@ export default function BasicTabs() {
           setNfts(res)}
           )
         )
-      )
+      ) }
+      catch(error){
+        console.log(error)
+      }
   }, [])
   const handleChange = (event, newValue) => {
     setValue(newValue);
