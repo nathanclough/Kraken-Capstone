@@ -50,34 +50,30 @@ function MarketplacePage(props) {
   const [value, setValue] = React.useState(0);
   const [search,setSearch] = React.useState({property: "name",value:""})
 
+  const sort = (prop,direction) =>{
+    var newNfts = [...nfts]
+    newNfts = sortFunc({"nfts" :newNfts,"prop":prop, "direction":direction})
+    setNfts(newNfts)
+    
+  }
+
+  const sortFunc =(args) =>{
+    args.nfts.sort((a, b) => (a.metadata[args.prop] > b.metadata[args.prop]) ? 1 : -1)
+    if(args.direction === "desc"){
+      args.nfts.reverse();
+    }
+
+    return args.nfts
+  }
+
   React.useEffect( () =>{
     api.getMarketplaceNfts().then( (res) => {
             var n = sortFunc({"nfts" :res,"prop":"name", "direction":"asc"})  
             setNfts(n)
            })
-    sort("name","desc")
   }, [])
 
-  const sort = (prop,direction) =>{
-      var newNfts = [...nfts]
-      newNfts = sortFunc({"nfts" :newNfts,"prop":prop, "direction":direction})
-      
-      console.log(newNfts)
-      setNfts(newNfts)
-      
-  }
-
-  const sortFunc =(args) =>{
-      args.nfts.sort((a, b) => (a.metadata[args.prop] > b.metadata[args.prop]) ? 1 : -1)
-      if(args.direction === "desc"){
-        args.nfts.reverse();
-      }
-
-      return args.nfts
-  }
-
   const setSearchVals = (args)=>{
-    console.log("search Two",args)
     setSearch({property:args.property,value: args.value})
   }
   
@@ -110,7 +106,6 @@ function MarketplacePage(props) {
           > 
             {nfts.filter(x => {              
               var res = x.metadata[search.property].toLowerCase().includes(search.value.toLowerCase())
-              console.log(res, search.value)
               return res
             }).map((nft, index) => (
               <Grid item xs={4} sm={4} md={3}>
