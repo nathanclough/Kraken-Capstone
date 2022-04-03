@@ -85,7 +85,6 @@ function Navbar(props) {
       
       <AppBar position="fixed">
         <Toolbar>
-
             <Grid container spacing={1}direction="row" alignItems="center" >
             <Grid item onClick={() => {redirect("/")}} style={{...format}}  >
                     <img className="App-logo" component="img" src={logo} alt="kraken logo"/>
@@ -101,7 +100,6 @@ function Navbar(props) {
                 <MyButton onClick={() => {props.Connect()}} style={{position: 'relative', top: '15%', left: 2, right: 10, bottom: 0}}>
                     {namiMsg}  
                 </MyButton> 
-                
             </div>
         </Toolbar>
       </AppBar>
