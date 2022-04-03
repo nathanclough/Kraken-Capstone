@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '../../App.css';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,11 +11,11 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 
 function NFTCard(props) {
-    const [setAnchorEl] = React.useState(null);
+    const [setAnchorEl] = React.useState(null); //used to change the state when the view button is clicked 
     const handleClose = () => {
       setAnchorEl(null);
     };
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //used to navigate the view button and redirect it to the view card page
     const redirect = (url) =>{
       console.log(props.nft)
       navigate(url,{
@@ -34,10 +35,11 @@ function NFTCard(props) {
               img src={props.image}
               alt="kraken"
               style={{objectFit:"scale-down"}}
-            />
-            <CardContent sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
-              <Typography variant="overline" display="block" gutterBottom>
-                {props.name}
+              className="App-NFTpreview" //scale the NFT images to the same size when displayed
+            /> 
+            <CardContent sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}> 
+              <Typography variant="overline" display="block" gutterBottom> 
+                {props.name} 
                 {props.nft.metadata.id}
               </Typography>
             </CardContent>
