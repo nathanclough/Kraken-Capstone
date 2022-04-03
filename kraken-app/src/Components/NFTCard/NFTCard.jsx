@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 function NFTCard(props) {
     const [setAnchorEl] = React.useState(null); //used to change the state when the view button is clicked 
     const handleClose = () => {
+      window.scrollTo(0,0)
       setAnchorEl(null);
     };
     const navigate = useNavigate(); //used to navigate the view button and redirect it to the view card page
@@ -44,7 +45,8 @@ function NFTCard(props) {
               </Typography>
             </CardContent>
             <CardActions sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}>
-              <Button variant="outlined" size="small" onClick={() => {redirect("/view"); handleClose()}}>View</Button>
+              <Button variant="outlined" size="small" onClick={() => {
+                redirect("/view"); handleClose()}}>View</Button>
             </CardActions>
           </Card>
         </Paper>
