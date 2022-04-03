@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -8,6 +8,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import NFTCard from '../NFTCard/NFTCard.jsx';
 import { KrakenAPI } from '../../api.js';
+import FilterSearch from '../FilterSearch/FilterSearch.jsx'
 
 const api = new KrakenAPI()
 
@@ -47,12 +48,39 @@ function a11yProps(index) {
 function MarketplacePage(props) {
   const [nfts, setNfts] = React.useState([])
   const [value, setValue] = React.useState(0);
+  const [search,setSearch] = React.useState({property: "name",value:""})
 
   React.useEffect( () =>{
-    api.getMarketplaceNfts().then( (res) => setNfts(res))
-    
+    api.getMarketplaceNfts().then( (res) => {
+            var n = sortFunc({"nfts" :res,"prop":"name", "direction":"asc"})  
+            setNfts(n)
+           })
+    sort("name","desc")
   }, [])
 
+  const sort = (prop,direction) =>{
+      var newNfts = [...nfts]
+      newNfts = sortFunc({"nfts" :newNfts,"prop":prop, "direction":direction})
+      
+      console.log(newNfts)
+      setNfts(newNfts)
+      
+  }
+
+  const sortFunc =(args) =>{
+      args.nfts.sort((a, b) => (a.metadata[args.prop] > b.metadata[args.prop]) ? 1 : -1)
+      if(args.direction === "desc"){
+        args.nfts.reverse();
+      }
+
+      return args.nfts
+  }
+
+  const setSearchVals = (args)=>{
+    console.log("search Two",args)
+    setSearch({property:args.property,value: args.value})
+  }
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -66,20 +94,25 @@ function MarketplacePage(props) {
           <Tab label="BUY NFTS FROM USERS" {...a11yProps(2)}/>
         </Tabs>
       </Box>
+      <FilterSearch setSearch={setSearchVals} search={search} sort={sort}></FilterSearch>
       <TabPanel value={value} index={0}>
         <Container sx={{ py: 8 }} maxWidth="xl">
           <Typography variant="h6" gutterBottom component="div">
             NFTs for Sale by KrakNFT
           </Typography>
           <Grid
-            sx={{ bgcolor: 'background.paper', pt: 8, pb: 8, display: 'flex', flexGrow: 1, flexWrap: 'wrap', flexDirection:'row-reverse'}}
+            sx={{ bgcolor: 'background.paper', pt: 8, pb: 8, display: 'flex', flexGrow: 1, flexWrap: 'wrap'}}
             container
             columnSpacing="row"
             spacing={2}
             className={MarketplacePage.container}
             justifyContent="flex-end"
           > 
-            {nfts.map((nft, index) => (
+            {nfts.filter(x => {              
+              var res = x.metadata[search.property].toLowerCase().includes(search.value.toLowerCase())
+              console.log(res, search.value)
+              return res
+            }).map((nft, index) => (
               <Grid item xs={4} sm={4} md={3}>
                   <NFTCard key={index} nft={nft} name={nft.metadata.name} image={nft.metadata.image}/>
               </Grid>

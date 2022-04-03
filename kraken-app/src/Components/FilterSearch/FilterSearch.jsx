@@ -22,31 +22,29 @@ export default function FilterSearch(props) {
     const handleClose = () => {
       setAnchorEl(null);
     };
-    function set_props(){
-        
-    };
+
+
 
   return (
     <div style={{display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
     <Paper
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, flexWrap: 'wrap'}}
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 800, flexWrap: 'wrap'}}
     >
+      <SearchIcon/>
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search NFTs"
-        inputProps={{ 'aria-label': 'Search NFTs' }}
+        placeholder={`Search NFTs by ${props.search.property}`}
+                inputProps={{ 'aria-label': 'Search NFTs' }}
+                onChange={(e) => {
+                  var newSearch = props.search
+                  newSearch.value = e.target.value
+                  props.setSearch(newSearch)
+                }}
       />
-      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon/>
-      </IconButton>
+        
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <IconButton sx={{ p: '10px' }} aria-label="filter">
-        <Typography>
-            Filter
-        </Typography>
-        <FilterAltIcon/>
-      </IconButton>
+      
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton sx={{ p: '10px' }} aria-label="filter" onClick={handleClick} >
         <Typography>
@@ -65,12 +63,16 @@ export default function FilterSearch(props) {
       >
         <MenuItem onClick={() => {
             handleClose();
-            props.sort = "Name_Asc"}}>Name Ascending<ArrowUpwardIcon/></MenuItem>
+            props.sort("name","asc")}}>Name Ascending<ArrowUpwardIcon/></MenuItem>
         <MenuItem onClick={() => {
             handleClose();
-            props.sort = "Name_Des"}}>Name Descending<ArrowDownwardIcon/></MenuItem>
-        <MenuItem onClick={handleClose}>ID Number Ascending<ArrowUpwardIcon/></MenuItem>
-        <MenuItem onClick={handleClose}>ID Number Descending<ArrowDownwardIcon/></MenuItem>
+            props.sort("name","desc")}}>Name Descending<ArrowDownwardIcon/></MenuItem>
+        <MenuItem onClick={() => {
+            handleClose();
+            props.sort("id","asc")}}>ID Number Ascending<ArrowUpwardIcon/></MenuItem>
+        <MenuItem onClick={() => {
+            handleClose();
+            props.sort("id","desc")}}>ID Number Descending<ArrowDownwardIcon/></MenuItem>
       </Menu>
     </Paper>
     </div>
