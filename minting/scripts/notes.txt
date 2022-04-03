@@ -1,0 +1,77 @@
+Captain Kraken
+    next id: 6    
+    json 
+    {
+        "721": {
+            policy:{
+                "KrakNFT": {
+                    "description": "Leader of the kraken pirates",
+                    "name": "Captain Kraken",
+                    "id": id,
+                    "image": "ipfs://QmQP7nndxMcdD6ZZwui3be97wRmFEXAvobh1wbN6rnwY5q",
+                    "collection" : "Pirates",
+                    "color": "Blue",
+                    "date": "4/2/2022",
+                    "Rarity":"Legendary"
+                }
+            }
+        }
+    }
+
+Pirate Pearl
+    next id: 6
+    json
+    {
+        "721": {
+            policy:{
+                "KrakNFT": {
+                    "description": "Member of the Kraken Pirates. She may not look it, but is fierce as they come.",
+                    "name": "Pirate Pearl",
+                    "id": id,
+                    "image": "ipfs://QmQz2cFcVYYaToRBykFpXTNDzQtqWkJxRYL9qwadXkfQd1",
+                    "collection" : "Pirates",
+                    "color": "Light Blue",
+                    "date": "4/2/2022",
+                    "Rarity":"Common"
+                }
+            }
+        }
+    }
+
+Traveler Tom
+    next id: 6
+    {
+        "721": {
+            policy:{
+                "KrakNFT": {
+                    "description": "A salesmen by trade, Tom is always on the lookout for pirates when traveling the open seas.",
+                    "name": "Traveler Tom",
+                    "id": id,
+                    "image": "ipfs://QmQL5o1itPd62B5XB7nUh8MpamjEtbTtsipC4z93hzZHpv",
+                    "collection" : "Pirates",
+                    "color": "Red",
+                    "date": "4/2/2022",
+                    "Rarity":"Common"
+                }
+            }
+        }
+    }
+
+Traveler Terresa 
+    next id 6
+    {
+        "721": {
+            policy:{
+                "KrakNFT": {
+                    "description": "A Lady of class who is very fond of her hat and purse.",
+                    "name": "Traveler Terresa",
+                    "id": id,
+                    "image": "ipfs://QmcPVQbCykjJxd9FC99kf6iHLH2g7RTCiUJ4tQAmXSqupe",
+                    "collection" : "Pirates",
+                    "color": "Light Blue",
+                    "date": "4/2/2022",
+                    "Rarity":"Common"
+                }
+            }
+        }
+    }

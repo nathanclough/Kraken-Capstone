@@ -24,14 +24,14 @@ metadata = {
     "721": {
         policy:{
             "KrakNFT": {
-                "description": "Leader of the kraken pirates",
-                "name": "Captain Kraken",
+                "description": "A Lady who is very fond of her hat and purse.",
+                "name": "Traveler Terresa",
                 "id": id,
-                "image": "ipfs://QmQP7nndxMcdD6ZZwui3be97wRmFEXAvobh1wbN6rnwY5q",
+                "image": "ipfs://QmcPVQbCykjJxd9FC99kf6iHLH2g7RTCiUJ4tQAmXSqupe",
                 "collection" : "Pirates",
-                "color": "Blue",
+                "color": "Purple",
                 "date": "4/2/2022",
-                "Rarity":"Legendary"
+                "Rarity":"Common"
             }
         }
     }
