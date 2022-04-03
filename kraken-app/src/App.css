@@ -15,6 +15,12 @@
   pointer-events: none;
 }
 
+.App-NFTpreview {
+  height: 300px;
+  width: 300px;
+  pointer-events: none;
+}
+
 .Nami-logo{
   width: auto;
   height: 45px;

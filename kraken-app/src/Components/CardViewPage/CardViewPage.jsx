@@ -10,7 +10,7 @@ import MarketplacePreview from '../../Components/MarketplacePreview/MarketplaceP
 import { useLocation } from 'react-router-dom';
 
 function CardViewPage(props) {
-  const location = useLocation()
+  const location = useLocation() //use the NFT ID passed in from the view button on the NFTCard
   const nft = location.state.nft
   
   return (
@@ -21,7 +21,7 @@ function CardViewPage(props) {
           <Grid container rowSpacing={6} columnSpacing={6} direction="row" alignItems="center" justifyContent="center">
             <Grid item>
                 <Paper elevation={3}>
-                    <img className="App-NFTimage" component="img" src={nft.metadata.image} alt="card"/>
+                    <img className="App-NFTimage" component="img" src={nft.metadata.image} alt="card"/> 
                 </Paper>
             </Grid>
             <Grid item xs={5}>
@@ -29,7 +29,7 @@ function CardViewPage(props) {
                     Name: {nft.metadata.name}
                 </Typography>
                 <Typography variant="h5" gutterBottom>
-                    Collection Name: {nft.metadata.name}
+                    Collection Name: {nft.metadata.collection}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                     ID: {nft.metadata.id}
@@ -60,10 +60,7 @@ function CardViewPage(props) {
                 Blockchain: Cardano
               </Typography>
               <Typography variant="subtitle2" gutterBottom>
-                Popularity: 
-              </Typography>
-              <Typography variant="subtitle2" gutterBottom>
-                Rarity: 
+                Rarity: {nft.metadata.Rarity}
               </Typography>
             </Grid>
             <Grid item >
