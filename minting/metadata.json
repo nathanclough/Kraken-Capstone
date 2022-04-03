@@ -1,0 +1,13 @@
+{
+    "721": {
+        "30bd0ee6f834afb6b2f4daabbc18550738bc506afc1bda3e45dca137":{
+            "KrakNFT": {
+                "description": "This is the first NFT for KRAKEN project",
+                "name": "OG KrakNFT",
+                "id": 10,
+                "image": "ipfs://QmQz2cFcVYYaToRBykFpXTNDzQtqWkJxRYL9qwadXkfQd1",
+                "collections" : ""
+            }
+        }
+    }
+}
