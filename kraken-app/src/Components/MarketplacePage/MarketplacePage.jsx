@@ -72,7 +72,7 @@ function MarketplacePage(props) {
             NFTs for Sale by KrakNFT
           </Typography>
           <Grid
-            sx={{ bgcolor: 'background.paper', pt: 8, pb: 8, display: 'flex', flexGrow: 1, flexWrap: 'wrap'}}
+            sx={{ bgcolor: 'background.paper', pt: 8, pb: 8, display: 'flex', flexGrow: 1, flexWrap: 'wrap', flexDirection:'row-reverse'}}
             container
             columnSpacing="row"
             spacing={2}
