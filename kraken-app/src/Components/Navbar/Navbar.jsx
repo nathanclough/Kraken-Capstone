@@ -12,11 +12,11 @@ import Fade from '@mui/material/Fade';
 import logo from "../../logo-Recovered.png";
 import { styled } from '@mui/styles';
 import icon from "../../icon.png";
-
+//change cursor format
 const format = {
     cursor:'pointer'
 }
-
+//setup the style for the connect button
 const MyButton = styled(Button)({
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
   border: 0,
@@ -38,17 +38,20 @@ function Navbar(props) {
     const handleClose = () => {
       setAnchorEl(null);
     };
-
+    //setup values to check if props is connected or not
+    //determined by app.js 
     const navigate = useNavigate();
     const namiMsg = props.connected ? "Connected" : "Connect";
     const redirect = (url) =>{
         navigate(url)
     }
     const userAvatar = () =>{
+      //If wallet is connected
         if(props.connected)
         { 
              return (
-               
+    //Display the profile of the user
+    //When profile is clicked, give an option to open profile         
     <div>
       <Button
         id="demo-positioned-button"
@@ -74,6 +77,7 @@ function Navbar(props) {
     </div>
   );   
         }
+        //Otherwise, provide a link to namiwallet.io to install nami wallet extention
         else{
           return(
           <img onClick={() => window.location.href = "https://namiwallet.io/"} src={NamiLogo} className="Nami-logo" alt="n-logo" style={{...format}}/>
@@ -82,7 +86,7 @@ function Navbar(props) {
         }
     }
     return( 
-      
+      //setup marketplace button and change the connect button based on if the prop is connected or not
       <AppBar position="fixed">
         <Toolbar>
             <Grid container spacing={1}direction="row" alignItems="center" >

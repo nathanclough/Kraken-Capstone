@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-
+//setup the columns for the transaction tab with the minimun width required
 const columns = [
   { id: 'name', label: 'NFT Name', minWidth: 170 },
   { id: 'code', label: 'Date', minWidth: 100 },
@@ -19,12 +19,12 @@ const columns = [
     format: (value) => value.toLocaleString('en-US'),
   }
 ];
-
+//Create the data
 function createData(name, code, population, size) {
   const density = population / size;
   return { name, code, population, size, density };
 }
-
+// setup rows by passing the NFT data the user bought to function createData
 const rows = [
   createData('Sea Kraken', '10/20/22', '200'),
   createData('Dune Kraken', '7/29/2022', '500'),
@@ -55,7 +55,8 @@ function StickyHeadTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+//Setup table with the column and rows and populate it with the data aquired
+//Setup table pagination to cycle through the data
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer>
