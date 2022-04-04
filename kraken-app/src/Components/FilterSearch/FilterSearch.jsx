@@ -30,7 +30,9 @@ export default function FilterSearch(props) {
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 800, flexWrap: 'wrap'}}
     >
+      {
       //Search/Filter Section
+      }
       <SearchIcon/>
       <InputBase
         sx={{ ml: 1, flex: 1 }}
@@ -48,7 +50,9 @@ export default function FilterSearch(props) {
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      {
       //Sorting Section
+      }
       <IconButton sx={{ p: '10px' }} aria-label="filter" onClick={handleClick} >
         <Typography>
             Sort

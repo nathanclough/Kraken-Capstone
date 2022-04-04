@@ -63,7 +63,7 @@ function MarketplacePage(props) {
   const sortFunc =(args) =>{
     //sorts the array of nfts based on their properties (name or id)
     args.nfts.sort((a, b) => (a.metadata[args.prop] > b.metadata[args.prop]) ? 1 : -1)
-    //if the user wanted to decrement it reverses the array
+    //if the user wanted to descend the Nfts it reverses the array
     if(args.direction === "desc"){
       args.nfts.reverse();
     }
@@ -96,7 +96,9 @@ function MarketplacePage(props) {
           <Tab label="BUY NFTS FROM USERS" {...a11yProps(2)}/>
         </Tabs>
       </Box>
+      {
       //renders the Search and sorting component on the page
+      }
       <FilterSearch setSearch={setSearchVals} search={search} sort={sort}></FilterSearch>
       <TabPanel value={value} index={0}>
         <Container sx={{ py: 8 }} maxWidth="xl">
