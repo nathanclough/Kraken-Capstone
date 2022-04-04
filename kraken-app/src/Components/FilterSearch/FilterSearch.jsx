@@ -30,14 +30,17 @@ export default function FilterSearch(props) {
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 800, flexWrap: 'wrap'}}
     >
+      //Search/Filter Section
       <SearchIcon/>
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder={`Search NFTs by ${props.search.property}`}
                 inputProps={{ 'aria-label': 'Search NFTs' }}
                 onChange={(e) => {
+                  //creates a new variable with properties of the search
                   var newSearch = props.search
                   newSearch.value = e.target.value
+                  //sets the variable in newSearch for Marketplace page
                   props.setSearch(newSearch)
                 }}
       />
@@ -45,13 +48,14 @@ export default function FilterSearch(props) {
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      //Sorting Section
       <IconButton sx={{ p: '10px' }} aria-label="filter" onClick={handleClick} >
         <Typography>
             Sort
         </Typography>
         <FilterListIcon/>
       </IconButton>
-      <Menu
+      <Menu     //drop down menu for the sorting
         id="sort-menu"
         anchorEl={anchorEl}
         open={open}
@@ -62,15 +66,19 @@ export default function FilterSearch(props) {
       >
         <MenuItem onClick={() => {
             handleClose();
+            //sets the sort property to name and ascending
             props.sort("name","asc")}}>Name Ascending<ArrowUpwardIcon/></MenuItem>
         <MenuItem onClick={() => {
             handleClose();
+            //sets the sort property to name and descending
             props.sort("name","desc")}}>Name Descending<ArrowDownwardIcon/></MenuItem>
         <MenuItem onClick={() => {
             handleClose();
+            //sets the sort property to id and ascending
             props.sort("id","asc")}}>ID Number Ascending<ArrowUpwardIcon/></MenuItem>
         <MenuItem onClick={() => {
             handleClose();
+            //sets the sort property to id and descending
             props.sort("id","desc")}}>ID Number Descending<ArrowDownwardIcon/></MenuItem>
       </Menu>
     </Paper>
