@@ -10,8 +10,9 @@ import { useState, useEffect } from 'react';
 import CardView from './Pages/CardView';
 
 function App() {
+  //State of wallet initiated as false
   const [connected,setConnected] = useState(false)
-
+  // Function to check if wallet is enabled and pass it to setConnected
   async function ckWallet(){
     
     let check = false;
@@ -24,24 +25,24 @@ function App() {
     }
     setConnected(check);
   }
-
+  //fucntion that enables nami wallet when called
   async function Connect(){
     var connect = await window.cardano.nami.enable();
     ckWallet();
     return(connect);
   }
-
+  //time buffer before checking if wallet exists
   useEffect(() => {
     setTimeout(()=>{
       ckWallet()
      }, 50)
   }, []);
-  
+  //If wallet is connected, display user profile
   let redir;
   if(connected === true){
     redir = <Route path="profile" element={<Profile/>} />;
   }
-
+//URL routes to each page that's required
   return (
     <div >
       <BrowserRouter>  

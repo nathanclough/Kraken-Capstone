@@ -9,6 +9,7 @@ import Transaction from './Transaction'
 import { KrakenAPI } from '../../api.js';
 
 const api = new KrakenAPI()
+//format function for account page
 const format = {
     fontWeight: "bold",
     marginLeft: "auto",
@@ -17,7 +18,7 @@ const format = {
 }
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  //setup box and display the childern as a typography
   return (
     <div
       role="tabpanel"
@@ -40,14 +41,14 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-
+//Setup props
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
-
+//Basic tab UI
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const [nfts,setNfts] = React.useState([]);
@@ -58,7 +59,7 @@ export default function BasicTabs() {
       // enable wallet and get balance this return encoded bytes 
     window.cardano.nami.enable()
       .then(res => res.getBalance()
-        // Call our appi to decode the balance with cardano serialization lib 
+        // Call our api to decode the balance with cardano serialization lib 
         .then(bytes => api.getBalance(bytes)
         // set the results 
         .then(res => {
@@ -74,7 +75,8 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  //create tabs and pass the user's nfts to gallery tab
+  //Pass the reciepts to the transactions tab
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <Box sx={{ borderBottom: 0, borderColor: 'divider' }}>
