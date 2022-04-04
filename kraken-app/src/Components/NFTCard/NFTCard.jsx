@@ -40,7 +40,7 @@ function NFTCard(props) {
             /> 
             <CardContent sx={{ display: 'flex', justifyContent: 'space-evenly', p: 1, m: 1, flexGrow: 1 }}> 
               <Typography variant="overline" display="block" gutterBottom> 
-                {props.name} 
+                {props.name + " "} 
                 {props.nft.metadata.id}
               </Typography>
             </CardContent>
