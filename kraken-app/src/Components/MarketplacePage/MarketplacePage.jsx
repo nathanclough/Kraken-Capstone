@@ -51,14 +51,19 @@ function MarketplacePage(props) {
   const [search,setSearch] = React.useState({property: "name",value:""})
 
   const sort = (prop,direction) =>{
+    //create a copy of the Nft array
     var newNfts = [...nfts]
+    //New array of Nfts are sorted with the sorting function
     newNfts = sortFunc({"nfts" :newNfts,"prop":prop, "direction":direction})
+    //set the new Nfts for the ones to display
     setNfts(newNfts)
     
   }
 
   const sortFunc =(args) =>{
+    //sorts the array of nfts based on their properties (name or id)
     args.nfts.sort((a, b) => (a.metadata[args.prop] > b.metadata[args.prop]) ? 1 : -1)
+    //if the user wanted to descend the Nfts it reverses the array
     if(args.direction === "desc"){
       args.nfts.reverse();
     }
@@ -74,6 +79,7 @@ function MarketplacePage(props) {
   }, [])
 
   const setSearchVals = (args)=>{
+    //searches within the array for items witth the same property
     setSearch({property:args.property,value: args.value})
   }
   
@@ -90,6 +96,9 @@ function MarketplacePage(props) {
           <Tab label="BUY NFTS FROM USERS" {...a11yProps(2)}/>
         </Tabs>
       </Box>
+      {
+      //renders the Search and sorting component on the page
+      }
       <FilterSearch setSearch={setSearchVals} search={search} sort={sort}></FilterSearch>
       <TabPanel value={value} index={0}>
         <Container sx={{ py: 8 }} maxWidth="xl">

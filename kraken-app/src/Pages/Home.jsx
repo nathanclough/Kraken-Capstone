@@ -11,7 +11,13 @@ function Home(props) {
       <Typography variant="h5" align="center" color='black' style={{fontWeight:"bold"}} marginTop={8}>
           Featured Collection
       </Typography>
+      {
+      //calls MarketplacePreview section of page
+      }
       <MarketplacePreview/>
+      {
+      //calls about us section of page
+      }
       <AboutUs/>
     </div>
   );
