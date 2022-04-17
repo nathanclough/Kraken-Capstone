@@ -42,19 +42,26 @@ services:
     tty: true
 
   cardano-node:
-        environment:
-            - CARDANO_NODE_SOCKET_PATH=/ipc/node.socket
-        volumes:
-            - 'cardano-node-ipc:/ipc'
-            - 'cardano-node-data:/data'
-        command: run --config  data/config/testnet-config.json \
-                     --database-path data/db \
-                     --topology data/config/testnet-topology.json \ 
-                     --host-addr 0.0.0.0 \
-                     --port 3001 \
-                     --socket-path ipc/node.socket
-        image: inputoutput/cardano-node
+    environment:
+        - CARDANO_NODE_SOCKET_PATH=/ipc/node.socket
+    volumes:
+        - 'cardano-node-ipc:/ipc'
+        - 'cardano-node-data:/data'
+    command: run --config  data/config/testnet-config.json \
+                  --database-path data/db \
+                  --topology data/config/testnet-topology.json \ 
+                  --host-addr 0.0.0.0 \
+                  --port 3001 \
+                  --socket-path ipc/node.socket
+    image: inputoutput/cardano-node
   
+  kraken-db:
+    volumes:
+      - 'mongo-data:/data/db'
+    ports:
+      - 27017:27017
+    image: mongo
+
 volumes:
   cardano-node-ipc:
     external: true
@@ -62,3 +69,6 @@ volumes:
   cardano-node-data:
     external: true
     name: cardano-node-data
+  mongo-data:
+    external: true
+    name: mongo-data

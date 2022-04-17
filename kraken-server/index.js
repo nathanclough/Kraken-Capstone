@@ -27,6 +27,21 @@ const wallet = cardanocliJs.wallet("KrakNFT");
 const realAssetName = "KrakNFT"
 const hexAssetName = Buffer.from(realAssetName).toString('hex')
 
+// Database configuration
+// Connection URL
+const PolicyModel = require("./PolicyModel");
+const mongoose = require("mongoose");
+const url = 'mongodb://kraken-db:27017/';
+
+mongoose.connect(url)
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+  console.log("Connected successfully");
+});
+
+
 // Endpoint for verifying assets in wallet 
 app.get("/balance",(req,res) => {
   let v = CSL.Value.from_bytes(Buffer.from(req.query.balance,'hex') )
@@ -45,17 +60,26 @@ app.get("/balance",(req,res) => {
     ).toString();
     
     var amt = asset.get(asset.keys().get(0)).to_str()
-   
-    if(policyHex != POLICY){
-      res.json({"ERROR": "Invalid Policy Id"}) 
-    }
-    else{
-      res.json({
-        txHash: mintTxs[policyHex],
-        policyId: policyHex,
-        tokenName: name,
-        value : amt })
-    }
+    
+    // Check database for supplied policy id 
+    PolicyModel.findOne( {policyId: policyHex}, (err, r) => {
+        if(err){
+          res.json({"ERROR": "Invalid Policy Id"}) 
+        }
+        else{
+
+          if(policyHex != r.policyId){
+            res.json({"ERROR": "Invalid Policy Id"}) 
+          }
+          else{
+            res.json({
+              txHash: r.mintTx,
+              policyId: r.policyId,
+              tokenName: name,
+              value : amt })
+          }
+        }
+    })
   }
   else{
   res.json({"ERROR": "No Tokens"})
