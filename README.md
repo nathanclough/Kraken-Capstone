@@ -2,7 +2,7 @@
 # Pre-run checklist:
 - cardano-node-data volume has config files (see steps to add config files)
 - cardano-node-ipc volume is created 
-- volume-data-backups/mongo/resture.sh is ran successfully
+- volume-data-backups/mongo/restore.sh is ran successfully
 
 # Steps to run:
 ## kraken-app
