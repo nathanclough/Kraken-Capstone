@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = "http://localhost:3003/mintUtxos"
+const url = "http://localhost:3003/"
 const blockfrost = "https://cardano-testnet.blockfrost.io/api/v0/txs/"
 const config = {headers: {
   "project_id": "testnet7yHbEpE8tPf15bJ3j8A5BFrFCbNiNFCs"
@@ -8,7 +8,7 @@ const config = {headers: {
 
 const getImageLink = (image) =>`https://ipfs.io/${image.replace(":","")}`
 
-const getMintUtxos =  async () => axios.get(url).then( (response) => response.data["result"])
+const getMintUtxos =  async () => axios.get(`${url}mintUtxos`).then( (response) => response.data["result"])
 
 const getMetadata = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/metadata`,config)
 .then( (response) => { 
@@ -20,6 +20,7 @@ const getMetadata = async (utxo) => axios.get(`${blockfrost}${utxo["txHash"]}/me
         return utxo
     }
     catch(error){
+        console.log(error)
         console.log(utxo)
         return null
     }
@@ -39,7 +40,7 @@ export class KrakenAPI {
     }
 
     getBalance(balance){
-        return axios.get("http://localhost:3003/balance", {params: {balance}}).then(r =>{
+        return axios.get(`${url}balance`, {params: {balance}}).then(r =>{
             if(r.data.hasOwnProperty('ERROR')){
                 return []
             }
@@ -49,5 +50,24 @@ export class KrakenAPI {
                     return [r]
                     })
     })
+
+    }
+
+    async getBuyTransaction( buyerAddress, buyerUtxos, policyId, mintTx, price,txId){
+        var req = {
+            "buyerAddress": buyerAddress,
+            "buyerUtxos": buyerUtxos,
+            "policyId": policyId,
+            "mintTx": mintTx,
+            "price": price,
+            "txId": txId
+        }
+        console.log(req)
+        return axios.post(`${url}buy`, req, {headers:{
+            "Content-Type": "application/json"
+        }}).then(r => {
+            console.log(r)
+            return r
+        })
     }
 }

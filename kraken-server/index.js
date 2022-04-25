@@ -17,10 +17,12 @@ const cardanocliJs = new CardanocliJs({
 
 // Server config 
 const express = require("express");
+var bodyParser = require('body-parser');
 var cors = require('cors')
 const PORT = process.env.PORT || 3003;
 const app = express();
 app.use(cors())
+app.use(bodyParser.json())
 
 // Mint wallet 
 const wallet = cardanocliJs.wallet("KrakNFT");
@@ -99,7 +101,8 @@ app.get("/mintUtxos", (req, res) =>{
           txHash: tx.txHash,
           policyId: policy,
           tokenName: realAssetName,
-          value : tx.value[policyId]
+          value : tx.value[policyId],
+          txId: tx.txId
         }
       }
   })
@@ -108,6 +111,59 @@ app.get("/mintUtxos", (req, res) =>{
         result: utxos.filter(x => x !== undefined)
     })
 });
+
+app.post("/buy",(req,res) => {
+  var buyerAddress = CSL.Address.from_bytes(Buffer.from(req.body.buyerAddress,'hex')).to_bech32(); // addr_test... format
+  var policyId = req.body.policyId
+  var mintTx = req.body.mintTx
+  var price = req.body.price
+  var mintTxId = req.body.txId
+  var buyerUtxos = cardanocliJs.queryUtxo(buyerAddress).filter( utxo => utxo.value.lovelace > cardanocliJs.toLovelace(price))[0]
+  
+  let mintUtxos = wallet.balance().utxo
+
+  mintUtxo = mintUtxos.find( tx => {
+    return tx.txHash === mintTx && tx.txId === mintTxId})
+
+  var krakNFT = policyId + "." + hexAssetName
+
+  let txInfo = {
+    txIn: [mintUtxo,buyerUtxos],
+    txOut: [
+      
+      // UTXO with payment going to KrakNFT
+      { address: wallet.paymentAddr, 
+        value: { lovelace: cardanocliJs.toLovelace(price) } 
+      },
+      // UTXO with NFT going to Buyer 
+      {
+        address: buyerAddress,
+        value: { [krakNFT]: 1, lovelace: buyerUtxos.value.lovelace - cardanocliJs.toLovelace(price),  }
+      } 
+
+    ],
+    changeAddress: wallet.paymentAddr
+  };
+
+  console.log(txInfo)
+  console.log("inputs")
+  txInfo.txIn.forEach( o => console.log(o))
+
+  console.log("outputs")
+  txInfo.txOut.forEach( o => console.log(o))
+
+  let tx = cardanocliJs.transactionBuild(txInfo);
+
+  //sign the transaction
+  let txSigned = cardanocliJs.transactionSign({
+    txBody: tx,
+    signingKeys: [wallet.payment.skey],
+  });
+
+  console.log(txSigned.cborHex)
+  // return so buyer can verify and sign 
+  res.json({"tx": txSigned})
+})
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
