@@ -67,7 +67,22 @@ export class KrakenAPI {
             "Content-Type": "application/json"
         }}).then(r => {
             console.log(r)
-            return r
+            return r.data.tx
+        })
+    }
+
+    async getFinalSignedTransaction(witness,buyTx){
+        var req = {
+            witnessSet : witness,
+            transaction: buyTx
+
+        }
+        console.log(req)
+        return axios.post(`${url}submitTx`, req, {headers:{
+            "Content-Type": "application/json"
+        }}).then(r => {
+            console.log(r)
+            return r.data.tx
         })
     }
 }

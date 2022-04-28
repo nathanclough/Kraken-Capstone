@@ -35,18 +35,32 @@ function CardViewPage(props) {
   }, [])
 
   const buy = () =>  {
-    // window.cardano.nami.enable()
-    // // get Utxos that have amount of at least price 
-    // .then(res => res.getUtxos()
-    //   // Call our api to decode the balance with cardano serialization lib 
-    //   .then(bytes => api.getBuyTransaction(address,bytes,nft.policyId,nft.txHash,price,nft.txId) )
-    // )
-
-    window.cardano.nami.enable().then( nami => 
-      nami.signTx("84a700828258207a6af0748d1b8188290e5fe07a7aaf1a3ae42926fb74c3a23b5ef9ff562f4541018258208e6fa542b4a1c7c891c98d70fcf18ccc2fe168dc7cc6bdc176af4d9880047629010d80018382581d60becc77d8dc2640ac76a3c1f55c346d2a871015b897a6d765c1c94fff1a001430b782581d60becc77d8dc2640ac76a3c1f55c346d2a871015b897a6d765c1c94fff1a0098968082583900f549a03bfcdead1c9939d3d99f57b2b0c0a869ac0cb3137d1ad9d0c49a3dda0ef4f3dbe216f9187bb23c92c7c90505bcf7b0534aca9885b5821a23207ccca1581cdc964d85775b56a441346f7044a52c4d777019ec5881511358291fcda1474b72616b4e465401021a0002b2a9031a035ed7f808000e80a1008182582050e6ea506684aae679ef4eff9f60e9b51e2806b8b99a70ce2e18b0d05159f5fc584047dd787161aa9cb45c0c3cb7c81c90f293f0d4d9e137459e196a7f96d006a2f6cf9be40b62e5c2cb28e06079a7fe840e1c248c4413fa5605bf3c219d76bfa400f5f6")
-      .then( signed => nami.submitTx(signed))
-      .catch( e => console.log(e))
+    window.cardano.nami.enable()
+    // get Utxos that have amount of at least price 
+    .then(nami => nami.getUtxos()
+      // Call our api to get transaction
+      .then(bytes => 
+        api.getBuyTransaction(address,bytes,nft.policyId,nft.txHash,price,nft.txId)
+        .then(buyTx => {
+          // sign the transaction 
+           window.cardano.nami.enable()
+           .then(
+             nami => nami.signTx(buyTx,true)
+              .then( witnessSet =>{
+                  console.log(witnessSet)
+                  api.getFinalSignedTransaction(witnessSet, buyTx)
+                  .then(finalTx => {
+                    window.cardano.nami.enable()
+                      .then(nami => 
+                        nami.submitTx(finalTx)
+                        )
+              })
+            })).catch( e => console.log(e))
+        })
       )
+    )
+
+      
   }
 
   return (
