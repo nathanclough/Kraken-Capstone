@@ -82,7 +82,7 @@ app.get("/balance",(req,res) => {
     
     // Check database for supplied policy id 
     PolicyModel.findOne( {policyId: policyHex}, (err, r) => {
-        if(err || r === undefined){
+      if(err || r === null){
           res.json({"ERROR": "Invalid Policy Id"}) 
         }
         else{
