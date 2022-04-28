@@ -1,3 +1,5 @@
+const { readFileSync } = require('fs');
+
 // Imports and valid keys 
 const CardanocliJs = require("cardanocli-js");
 
@@ -144,6 +146,11 @@ app.post("/buy",(req,res) => {
 
   var krakNFT = policyId + "." + hexAssetName
 
+  var buyerTxOut = JSON.parse(JSON.stringify(buyerUtxos))
+  buyerTxOut.value.lovelace -= cardanocliJs.toLovelace(price)
+  delete buyerTxOut.value.undefined
+  console.log(buyerTxOut)
+  
   let txInfo = {
     txIn: [mintUtxo,buyerUtxos],
     txOut: [
@@ -155,12 +162,12 @@ app.post("/buy",(req,res) => {
       // UTXO with NFT going to Buyer 
       {
         address: buyerAddress,
-        value: { [krakNFT]: 1, lovelace: buyerUtxos.value.lovelace - cardanocliJs.toLovelace(price),  }
+        value: { ...buyerTxOut.value, [krakNFT]: 1  }
       } 
       
     ],
   };
-
+  console.log(txInfo.txOut[1])
   let raw = cardanocliJs.transactionBuildRaw({...txInfo});
 
   let fee = cardanocliJs.transactionCalculateMinFee({
@@ -178,8 +185,11 @@ app.post("/buy",(req,res) => {
   })
   console.log(s);
 
-                                                      
-  const txCli = CSL.Transaction.from_bytes(Buffer.from("84a700828258200721fd0e7a7574464331d7a872c36b64b60a35f73332dcb4efbfbb676f73bf2e018258207a6af0748d1b8188290e5fe07a7aaf1a3ae42926fb74c3a23b5ef9ff562f4541010d80018282581d60becc77d8dc2640ac76a3c1f55c346d2a871015b897a6d765c1c94fff1a00af79e082583900f549a03bfcdead1c9939d3d99f57b2b0c0a869ac0cb3137d1ad9d0c49a3dda0ef4f3dbe216f9187bb23c92c7c90505bcf7b0534aca9885b5821a231da167a1581c51cb4d9d3e08ee1408eaa7afcceb939aaf1ae11be6c006d4730368aba1474b72616b4e465401021a0002db65031a0362022a08000e80a1008182582050e6ea506684aae679ef4eff9f60e9b51e2806b8b99a70ce2e18b0d05159f5fc584033f6f22527842f2eeaab3e8234d51ce65a706d96e61e84a9136c209822f8ebc9b32eb296e299bfbe3a23a025de390cd5786b41db48aa3e6fb8c0ce239e462707f5f6", "hex"));
+
+  const fromFile = readFileSync(s);
+  var jsonTx = JSON.parse(fromFile)                                                
+  
+  const txCli = CSL.Transaction.from_bytes(Buffer.from(jsonTx.cborHex, "hex"));
 
   const txBody = txCli.body();
 
