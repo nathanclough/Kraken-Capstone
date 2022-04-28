@@ -39,17 +39,10 @@ export class KrakenAPI {
         return this.getMarketplaceNfts().then(res => res.slice(0,3))
     }
 
-    getBalance(balance){
-        return axios.get(`${url}balance`, {params: {balance}}).then(r =>{
-            if(r.data.hasOwnProperty('ERROR')){
-                return []
-            }
-            return getMetadata(r.data)
-                    .then(r => {
-                        console.log(r)
-                    return [r]
-                    })
-    })
+    async getBalance(balance){
+        return axios.get(`${url}balance`, {params: {balance}}).then(r => r.data.result).then((uts) =>{
+            return uts.map( tx => getMetadata(tx) )
+            }).then(res => Promise.all(res).then( (res) => res.filter(x => x !== null)))
 
     }
 

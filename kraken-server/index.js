@@ -64,48 +64,48 @@ const signTransaction = (
 
 
 // Endpoint for verifying assets in wallet 
-app.get("/balance",(req,res) => {
+app.get("/balance",async (req,res) => {
   let v = CSL.Value.from_bytes(Buffer.from(req.query.balance,'hex') )
-  
+  const submit = () =>{
+    result.json()
+  }
   if(v.multiasset()){
     var keys = v.multiasset().keys()
+    console.log(keys.len())
+    var result = []
 
-    var key = keys.get(0)
-    var policyHex = Buffer.from(key.to_bytes()).toString('hex')
-    
-    var asset = v.multiasset().get(key)
-    
-    var name = Buffer.from(
-      asset.keys().get(0).name(),
-      "hex"
-    ).toString();
-    
-    var amt = asset.get(asset.keys().get(0)).to_str()
-    
-    // Check database for supplied policy id 
-    PolicyModel.findOne( {policyId: policyHex}, (err, r) => {
-      if(err || r === null){
-          res.json({"ERROR": "Invalid Policy Id"}) 
-        }
-        else{
+    for(let i = 0; i<keys.len(); i++){
+      var key = keys.get(i)
+      var policyHex = Buffer.from(key.to_bytes()).toString('hex')
+      
+      var asset = v.multiasset().get(key)
+      
+      var name = Buffer.from(
+        asset.keys().get(0).name(),
+        "hex"
+      ).toString();
+      
+      var amt = asset.get(asset.keys().get(0)).to_str()
 
-          if(policyHex != r.policyId){
-            res.json({"ERROR": "Invalid Policy Id"}) 
+      var r = await PolicyModel.findOne( {policyId: policyHex}).exec()        
+      if(!( r === null || policyHex != r.policyId)){
+            
+              result.push({
+                txHash: r.mintTx,
+                policyId: r.policyId,
+                tokenName: name,
+                value : amt })
+            }
           }
-          else{
-            res.json({
-              txHash: r.mintTx,
-              policyId: r.policyId,
-              tokenName: name,
-              value : amt })
-          }
-        }
-    })
-  }
-  else{
-  res.json({"ERROR": "No Tokens"})
-  }
-})
+    
+      console.log(result)
+      res.json({"result" : result}) 
+    }
+    else{
+      res.json({"ERROR": "No Tokens"})
+    }
+    
+  })
 
 // Endpoints for 
 app.get("/mintUtxos", (req, res) =>{
