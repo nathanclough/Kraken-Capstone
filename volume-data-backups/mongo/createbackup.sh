@@ -1,0 +1,1 @@
+docker run --rm --volumes-from kraken-capstone_kraken-db_1 -v $(pwd):/backup ubuntu bash -c  "cd /data/db && tar cvf /backup/data.tar ."
