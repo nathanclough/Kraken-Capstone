@@ -1,5 +1,6 @@
 # Kraken-Capstone
 ## Pre-run checklist:
+- repo is cloned on Linux/WSL
 - nami wallet extension is installed on browser 
 - Docker is installed 
 - volume-data-backups/cardano-node/restore.sh is ran successfuly 
