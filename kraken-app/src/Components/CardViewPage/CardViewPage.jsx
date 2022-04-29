@@ -8,11 +8,61 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import MarketplacePreview from '../../Components/MarketplacePreview/MarketplacePreview.jsx';
 import { useLocation } from 'react-router-dom';
+import { KrakenAPI } from '../../api.js';
 
 function CardViewPage(props) {
   const location = useLocation() //use the NFT ID passed in from the view button on the NFTCard
   const nft = location.state.nft
-  
+  const price = 10
+  const api = new KrakenAPI()
+  const[address, setAddress] = React.useState("")
+
+  React.useEffect( () => {
+    try{
+      // enable wallet and get balance this return encoded bytes 
+    window.cardano.nami.enable()
+      .then(res => res.getUsedAddresses()
+        // Call our api to decode the balance with cardano serialization lib 
+        .then(res => 
+          {
+            console.log(res)
+            setAddress(res[0])})
+          
+      ) }
+      catch(error){
+        console.log(error)
+      }
+  }, [])
+
+  const buy = () =>  {
+    window.cardano.nami.enable()
+    // get Utxos that have amount of at least price 
+    .then(nami => nami.getUtxos()
+      // Call our api to get transaction
+      .then(bytes => 
+        api.getBuyTransaction(address,bytes,nft.policyId,nft.txHash,price,nft.txId)
+        .then(buyTx => {
+          // sign the transaction 
+           window.cardano.nami.enable()
+           .then(
+             nami => nami.signTx(buyTx,true)
+              .then( witnessSet =>{
+                  console.log(witnessSet)
+                  api.getFinalSignedTransaction(witnessSet, buyTx)
+                  .then(finalTx => {
+                    window.cardano.nami.enable()
+                      .then(nami => 
+                        nami.submitTx(finalTx)
+                        )
+              })
+            })).catch( e => console.log(e))
+        })
+      )
+    )
+
+      
+  }
+
   return (
     <>
       <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, display: 'flex', flexGrow: 1, justifyContent: "center"}}>
@@ -40,11 +90,11 @@ function CardViewPage(props) {
             </Grid>
             <Grid item marginBottom={60}>
               <Typography variant="overline" gutterBottom>
-                Price ADA 
+                Price ADA 10
               </Typography>
             </Grid>
             <Grid item marginBottom={60}>
-              <Button variant="contained" size="small">Buy</Button>
+              <Button variant="contained" size="small" onClick={buy}>Buy</Button>
             </Grid>
             <Grid item xs={11}>
               <Typography variant="h6" gutterBottom>

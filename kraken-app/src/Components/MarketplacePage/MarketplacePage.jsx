@@ -53,6 +53,7 @@ function MarketplacePage(props) {
   const sort = (prop,direction) =>{
     //create a copy of the Nft array
     var newNfts = [...nfts]
+    console.log(newNfts[0])
     //New array of Nfts are sorted with the sorting function
     newNfts = sortFunc({"nfts" :newNfts,"prop":prop, "direction":direction})
     //set the new Nfts for the ones to display
